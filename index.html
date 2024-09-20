@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <link rel="stylesheet" href="./css/style.css">
+        <title>Path Finding Visualizer</title>
+        <script src="./js/attributes.js"></script>
+        <script src="./js/queue.js"></script>
+        <script src="./js/point.js"></script>
+        <script src="./js/draw.js"></script>
+        <script src="./js/dijkstra.js"></script>
+        <script src="./js/main.js"></script>
+    </head>
+    <body>
+        <button type="button" class="btn btn-dark" id="clear">Clear</button>
+        <button type="button" class="btn btn-dark" id="path">Find Path</button>
+        <button type="button" class="btn btn-dark" id="random">Random</button>
+        <div id="canvas-wrap">
+            <canvas id="cnvs" width="1400" height="700"></canvas>
+            <div id="tutorial">
+                This website visualizes the Dijkstra path-finding algorithm.<br>
+                The yellow box represents the start point, and the green box represents the end point of the path.<br>
+                You can move these points by clicking and dragging them on the grid.<br>
+                You can also add walls by clicking on the grid.<br>
+                Additionally, you can use the "Random" button to randomly place the green end point on the grid.<br>
+                <button type="button" class="btn btn-dark" id="got">Got it!</button>
+            </div>
+        </div>
+    </body>
+</html>
