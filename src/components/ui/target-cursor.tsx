@@ -85,11 +85,27 @@ const TargetCursor: React.FC<TargetCursorProps> = ({
     createSpinTimeline();
 
     const tickerFn = () => {
-      if (!targetCornerPositionsRef.current || !cursorRef.current || !cornersRef.current) {
+      if (!cursorRef.current || !cornersRef.current) {
         return;
       }
       const strength = activeStrengthRef.current.current;
       if (strength === 0) return;
+
+      // Re-read the active target's bounding rect each frame so the corner
+      // brackets follow CSS transforms (scale on hover, layout shifts, etc.).
+      if (activeTarget) {
+        const rect = activeTarget.getBoundingClientRect();
+        const { borderWidth, cornerSize } = constants;
+        targetCornerPositionsRef.current = [
+          { x: rect.left - borderWidth, y: rect.top - borderWidth },
+          { x: rect.right + borderWidth - cornerSize, y: rect.top - borderWidth },
+          { x: rect.right + borderWidth - cornerSize, y: rect.bottom + borderWidth - cornerSize },
+          { x: rect.left - borderWidth, y: rect.bottom + borderWidth - cornerSize }
+        ];
+      }
+
+      if (!targetCornerPositionsRef.current) return;
+
       const cursorX = gsap.getProperty(cursorRef.current, 'x') as number;
       const cursorY = gsap.getProperty(cursorRef.current, 'y') as number;
       const corners = Array.from(cornersRef.current);
