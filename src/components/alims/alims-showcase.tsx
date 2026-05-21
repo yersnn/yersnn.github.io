@@ -13,7 +13,6 @@ export function AlimsShowcase() {
     <ScreensCarousel
       frame="none"
       cardWidthPx={340}
-      durationSeconds={70}
       items={screens.map((s) => (
         <img
           key={s.src}

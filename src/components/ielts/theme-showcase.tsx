@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useInView } from '@/lib/use-in-view'
 
 const themes = [
   { src: '/themes/theme-1.png', label: 'Default · Dark' },
@@ -15,10 +16,11 @@ const ORBIT_DURATION = 55
 
 export function ThemeShowcase() {
   const [hoveredId, setHoveredId] = useState<number | null>(null)
-  const paused = hoveredId !== null
+  const { ref, inView } = useInView<HTMLDivElement>({ rootMargin: '200px' })
+  const paused = hoveredId !== null || !inView
 
   return (
-    <div className="relative w-full px-4">
+    <div ref={ref} className="relative w-full px-4">
       <style>{`
         @keyframes theme-ellipse {
           from { offset-distance: 0%; }

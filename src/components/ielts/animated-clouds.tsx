@@ -118,7 +118,13 @@ const instances: Instance[] = [
   { tpl: t0, top: 420, left: 1100, scale: 0.55, duration: 245, delay: -140 },
 ];
 
-export function AnimatedClouds({ containerWidth = "100vw" }: { containerWidth?: string }) {
+export function AnimatedClouds({
+  containerWidth = "100vw",
+  paused = false,
+}: {
+  containerWidth?: string
+  paused?: boolean
+}) {
   return (
     <div
       className="pointer-events-none absolute inset-0 overflow-hidden"
@@ -146,6 +152,7 @@ export function AnimatedClouds({ containerWidth = "100vw" }: { containerWidth?: 
               ["--end" as string]: `calc(${containerWidth} - ${c.left}px + 50px)`,
               ["--scale" as string]: `${c.scale}`,
               animation: `cloud-drift-overlay ${c.duration}s linear ${c.delay}s infinite`,
+              animationPlayState: paused ? "paused" : "running",
               willChange: "transform",
             }}
           >

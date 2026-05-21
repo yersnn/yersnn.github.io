@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { useInView } from '@/lib/use-in-view'
 
 function normalizeColor(hexCode: number): number[] {
   return [
@@ -623,14 +624,21 @@ void main() {
     window.addEventListener('resize', () => this.resize())
   }
 
+  // Render the WebGL canvas at half resolution; CSS upscales for free.
+  // Smooth gradients/clouds hide the lower-res rendering. 4x fewer pixels shaded.
+  static RENDER_SCALE = 0.5
+  // Cap to ~30 fps. Default rAF runs at the display refresh rate (often 60+).
+  static FRAME_MS = 1000 / 30
+
   resize(): void {
-    const width = window.innerWidth
-    const height = window.innerHeight
+    const scale = Gradient.RENDER_SCALE
+    const width = Math.max(1, Math.floor(window.innerWidth * scale))
+    const height = Math.max(1, Math.floor(window.innerHeight * scale))
     this.minigl.setSize(width, height)
     this.minigl.setOrthographicCamera()
 
-    const xSegCount = Math.ceil(width * 0.02)
-    const ySegCount = Math.ceil(height * 0.05)
+    const xSegCount = Math.max(8, Math.ceil(width * 0.012))
+    const ySegCount = Math.max(8, Math.ceil(height * 0.03))
     this.mesh.geometry.setTopology(xSegCount, ySegCount)
     this.mesh.geometry.setSize(width, height)
     this.mesh.material.uniforms.u_shadow_power.value = width < 600 ? 5 : 6
@@ -639,7 +647,14 @@ void main() {
   animate = (timestamp: number): void => {
     if (!this.isPlaying) return
 
-    this.time += Math.min(timestamp - this.last, 1000 / 15)
+    // Skip frames to cap at FRAME_MS cadence.
+    const delta = timestamp - this.last
+    if (delta < Gradient.FRAME_MS) {
+      this.animationId = requestAnimationFrame(this.animate)
+      return
+    }
+
+    this.time += Math.min(delta, 1000 / 15)
     this.last = timestamp
     this.mesh.material.uniforms.u_time.value = this.time
     this.minigl.render()
@@ -690,10 +705,16 @@ export function GradientWave({
   noiseFrequency = [0.0001, 0.0009],
   deform = { incline: 0.5, noiseAmp: 250, noiseFlow: 5 },
 }: GradientWaveProps) {
-  const containerRef = useRef<HTMLDivElement>(null)
+  const { ref: containerRef, inView } = useInView<HTMLDivElement>({
+    rootMargin: '100px',
+  })
   const gradientRef = useRef<Gradient | null>(null)
+  const reducedMotion =
+    typeof window !== 'undefined' &&
+    window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
 
   useEffect(() => {
+    if (reducedMotion) return
     if (!containerRef.current) return
 
     const canvas = document.createElement('canvas')
@@ -743,7 +764,38 @@ export function GradientWave({
     noiseSpeed,
     noiseFrequency,
     deform,
+    reducedMotion,
+    containerRef,
   ])
+
+  // Pause the WebGL render loop when scrolled off-screen — saves continuous
+  // requestAnimationFrame work on lower-end machines.
+  useEffect(() => {
+    if (reducedMotion) return
+    if (!gradientRef.current || !isPlaying) return
+    if (inView) {
+      gradientRef.current.start()
+    } else {
+      gradientRef.current.stop()
+    }
+  }, [inView, isPlaying])
+
+  // Reduced-motion fallback: static CSS gradient using the first/last colors.
+  // No WebGL, no animation — instant render, zero ongoing cost.
+  if (reducedMotion) {
+    const a = colors[0] ?? '#000'
+    const b = colors[Math.floor(colors.length / 2)] ?? '#888'
+    const c = colors[colors.length - 1] ?? '#fff'
+    return (
+      <div
+        ref={containerRef}
+        className={`absolute inset-0 z-0 w-full h-full overflow-hidden ${className}`}
+        style={{
+          backgroundImage: `linear-gradient(135deg, ${a} 0%, ${b} 50%, ${c} 100%)`,
+        }}
+      />
+    )
+  }
 
   return (
     <div

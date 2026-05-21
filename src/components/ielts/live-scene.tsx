@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import FrameDay from '@/imports/Frame1171276701-1/Frame1171276701'
 import FrameNight from '@/imports/Frame1171276702-2/Frame1171276702'
 import FrameMorning from '@/imports/Frame1171276717-1/Frame1171276717-2-5828'
 import { AnimatedClouds } from './animated-clouds'
+import { useInView } from '@/lib/use-in-view'
 
 export type SceneMode = 'day' | 'morning' | 'night'
 
@@ -26,7 +27,9 @@ interface LiveSceneProps {
 }
 
 export function LiveScene({ fixedMode }: LiveSceneProps) {
-  const containerRef = useRef<HTMLDivElement>(null)
+  const { ref: containerRef, inView } = useInView<HTMLDivElement>({
+    rootMargin: '300px',
+  })
   const [mode, setMode] = useState<SceneMode>(fixedMode ?? 'day')
   const [scale, setScale] = useState(1)
 
@@ -35,11 +38,12 @@ export function LiveScene({ fixedMode }: LiveSceneProps) {
       setMode(fixedMode)
       return
     }
+    if (!inView) return
     const id = setInterval(() => {
       setMode((m) => order[(order.indexOf(m) + 1) % order.length])
     }, CYCLE_MS)
     return () => clearInterval(id)
-  }, [fixedMode])
+  }, [fixedMode, inView])
 
   useEffect(() => {
     const el = containerRef.current
@@ -49,7 +53,7 @@ export function LiveScene({ fixedMode }: LiveSceneProps) {
     const ro = new ResizeObserver(update)
     ro.observe(el)
     return () => ro.disconnect()
-  }, [])
+  }, [containerRef])
 
   const Frame =
     mode === 'day' ? FrameDay : mode === 'morning' ? FrameMorning : FrameNight
@@ -65,7 +69,7 @@ export function LiveScene({ fixedMode }: LiveSceneProps) {
     >
       <style>{sceneCss}</style>
       <div
-        className={`scene scene-${mode}`}
+        className={`scene scene-${mode}${inView ? '' : ' scene-paused'}`}
         style={{
           position: 'absolute',
           top: 0,
@@ -78,7 +82,10 @@ export function LiveScene({ fixedMode }: LiveSceneProps) {
       >
         <Frame />
         {mode === 'day' && (
-          <AnimatedClouds containerWidth={`${DESIGN_WIDTH}px`} />
+          <AnimatedClouds
+            containerWidth={`${DESIGN_WIDTH}px`}
+            paused={!inView}
+          />
         )}
       </div>
     </div>
@@ -105,6 +112,27 @@ const sceneCss = `
 @keyframes cloud-drift {
   0%   { transform: translateX(var(--start)); }
   100% { transform: translateX(var(--end)); }
+}
+
+.scene-paused [class~="top-[406px]"][class~="left-[1171px]"],
+.scene-paused [class~="top-[77px]"][class~="left-[18px]"],
+.scene-paused [class~="top-[497px]"][class~="left-[899px]"],
+.scene-paused [class~="top-[347px]"][class~="left-[291px]"],
+.scene-paused [class~="top-[105px]"][class~="left-[1176px]"],
+.scene-paused [class~="top-[304px]"][class~="left-[1160px]"],
+.scene-paused [class~="top-[281px]"][class~="left-[16px]"],
+.scene-paused [class~="top-[49px]"][class~="left-[1106px]"],
+.scene-paused [class~="top-[330px]"][class~="left-[1169px]"],
+.scene-paused [class~="top-[202px]"][class~="left-[1207px]"],
+.scene-paused [class~="top-[442px]"][class~="left-[836px]"],
+.scene-paused [class~="top-[177px]"][class~="left-[76px]"],
+.scene-paused [class~="top-[515.61px]"][class~="left-[1189px]"],
+.scene-paused [class~="top-[532.61px]"][class~="left-[-11px]"],
+.scene-paused [class~="top-[-44px]"][class~="left-[1148px]"],
+.scene-paused [class~="top-[657px]"][class~="left-[281px]"],
+.scene-paused [class~="top-[326.18px]"][class~="left-[-18.84px]"],
+.scene-paused [class~="top-[-32.07px]"][class~="left-[-39.4px]"] {
+  animation-play-state: paused !important;
 }
 
 .scene-day [class~="top-[441px]"][class~="left-[47px]"],

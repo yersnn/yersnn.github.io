@@ -1,11 +1,21 @@
+import { lazy, Suspense } from 'react'
 import { HashRouter, Routes, Route, useLocation } from 'react-router-dom'
 import PillNav from '@/components/ui/pill-nav'
 import TargetCursor from '@/components/ui/target-cursor'
 import { HomePage } from '@/pages/home'
-import { IeltsPage } from '@/pages/ielts'
-import { AlimsPage } from '@/pages/alims'
-import { B2BMobilePage } from '@/pages/b2b-mobile'
-import { B2BWebPage } from '@/pages/b2b-web'
+
+const IeltsPage = lazy(() =>
+  import('@/pages/ielts').then((m) => ({ default: m.IeltsPage })),
+)
+const AlimsPage = lazy(() =>
+  import('@/pages/alims').then((m) => ({ default: m.AlimsPage })),
+)
+const B2BMobilePage = lazy(() =>
+  import('@/pages/b2b-mobile').then((m) => ({ default: m.B2BMobilePage })),
+)
+const B2BWebPage = lazy(() =>
+  import('@/pages/b2b-web').then((m) => ({ default: m.B2BWebPage })),
+)
 
 const navItems = [
   { label: 'Main', href: '/' },
@@ -14,6 +24,14 @@ const navItems = [
   { label: 'B2B App', href: '/b2b-mobile' },
   { label: 'B2B Web', href: '/b2b-web' },
 ]
+
+function PageFallback() {
+  return (
+    <div className="flex min-h-screen items-center justify-center text-sm text-muted-foreground">
+      Loading…
+    </div>
+  )
+}
 
 function Layout() {
   const location = useLocation()
@@ -31,13 +49,15 @@ function Layout() {
         hoveredPillTextColor="#0e0e10"
         initialLoadAnimation={true}
       />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/ielts" element={<IeltsPage />} />
-        <Route path="/alims" element={<AlimsPage />} />
-        <Route path="/b2b-mobile" element={<B2BMobilePage />} />
-        <Route path="/b2b-web" element={<B2BWebPage />} />
-      </Routes>
+      <Suspense fallback={<PageFallback />}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/ielts" element={<IeltsPage />} />
+          <Route path="/alims" element={<AlimsPage />} />
+          <Route path="/b2b-mobile" element={<B2BMobilePage />} />
+          <Route path="/b2b-web" element={<B2BWebPage />} />
+        </Routes>
+      </Suspense>
     </>
   )
 }
