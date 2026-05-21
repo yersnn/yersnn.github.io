@@ -1,0 +1,12 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 1446 990" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="TOP">
+<rect id="Lid" opacity="0.7" width="1446" height="990" rx="40" fill="var(--fill-0, #F6F6F6)"/>
+<g id="Inner">
+<path d="M3 41C3 20.0132 20.0132 3 41 3H1405C1425.99 3 1443 20.0132 1443 41V949C1443 969.987 1425.99 987 1405 987H41C20.0132 987 3 969.987 3 949V41Z" fill="var(--fill-0, #252525)"/>
+<path d="M3 41C3 20.0132 20.0132 3 41 3H1405C1425.99 3 1443 20.0132 1443 41V949C1443 969.987 1425.99 987 1405 987H41C20.0132 987 3 969.987 3 949V41Z" fill="var(--fill-1, black)" fill-opacity="0.2"/>
+</g>
+<path id="Bottom of screen" d="M10 936H1437V946C1437 968.644 1418.64 987 1396 987H49C27.4609 987 10 969.539 10 948V936Z" fill="var(--fill-0, #323232)"/>
+<path id="Inner Line (Stroke)" fill-rule="evenodd" clip-rule="evenodd" d="M1404 9H42C24.3269 9 10 23.3269 10 41V947C10 964.673 24.3269 979 42 979H1404C1421.67 979 1436 964.673 1436 947V41C1436 23.3269 1421.67 9 1404 9ZM42 7C23.2223 7 8 22.2223 8 41V947C8 965.778 23.2223 981 42 981H1404C1422.78 981 1438 965.778 1438 947V41C1438 22.2223 1422.78 7 1404 7H42Z" fill="var(--fill-0, #141414)"/>
+<path id="PUT YOUR DESIGN HERE (IMG FILL)" d="M26 43H1419V915H26V43Z" fill="var(--fill-0, black)"/>
+</g>
+</svg>

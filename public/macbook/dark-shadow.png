@@ -1,0 +1,12 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 1590 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Dark shadow" filter="url(#filter0_f_0_17)" style="mix-blend-mode:multiply">
+<path d="M12 15C12 13.3431 13.3431 12 15 12H1575C1576.66 12 1578 13.3431 1578 15C1578 16.6569 1576.66 18 1575 18H15C13.3431 18 12 16.6569 12 15Z" fill="var(--fill-0, #272737)"/>
+</g>
+<defs>
+<filter id="filter0_f_0_17" x="0" y="0" width="1590" height="30" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="6" result="effect1_foregroundBlur_0_17"/>
+</filter>
+</defs>
+</svg>
