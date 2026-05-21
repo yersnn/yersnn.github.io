@@ -41,47 +41,47 @@ export function AlimsPage() {
 
         <ProjectMeta items={meta} />
 
-        <div className="mt-24 grid grid-cols-1 gap-12 md:grid-cols-12">
-          <div className="md:col-span-4">
+        <div className="mt-16 grid grid-cols-1 items-start gap-12 md:mt-20 md:grid-cols-12 md:gap-16">
+          <div className="md:col-span-7">
             <div className="text-sm uppercase tracking-[0.25em] text-[#CBEE4C]">
               The pitch
             </div>
+            <p className="mt-4 text-lg leading-relaxed text-foreground/80 md:text-2xl md:leading-relaxed">
+              A mobile companion for students preparing for{' '}
+              <span className="font-semibold text-[#CBEE4C]">IELTS</span>,{' '}
+              <span className="font-semibold text-[#CBEE4C]">SAT</span>, and
+              more — built around a clean dark interface, courses in progress
+              at a glance, and the same{' '}
+              <span className="font-semibold text-[#CBEE4C]">ELO</span> system
+              that powers the desktop platform.
+            </p>
           </div>
-          <p className="md:col-span-8 text-lg leading-relaxed text-foreground/80 md:text-2xl md:leading-relaxed">
-            A mobile companion for students preparing for{' '}
-            <span className="font-semibold text-[#CBEE4C]">IELTS</span>,{' '}
-            <span className="font-semibold text-[#CBEE4C]">SAT</span>, and
-            more — built around a clean dark interface, courses in progress at
-            a glance, and the same{' '}
-            <span className="font-semibold text-[#CBEE4C]">ELO</span> system
-            that powers the desktop platform.
-          </p>
-        </div>
 
-        <div className="relative mt-32 mb-32">
-          <div
-            className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[120%] w-[60%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#CBEE4C]/10 blur-3xl"
-            aria-hidden="true"
-          />
-          <div className="mx-auto max-w-sm">
-            <img
-              src={screens[0]}
-              alt="Courses — featured screen"
-              loading="eager"
-              className="block w-full"
+          <div className="relative md:col-span-5">
+            <div
+              className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[110%] w-[80%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#CBEE4C]/10 blur-3xl"
+              aria-hidden="true"
             />
-          </div>
-          <div className="mx-auto mt-8 max-w-sm text-center">
-            <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-              Featured
+            <div className="mx-auto max-w-[280px]">
+              <img
+                src={screens[0]}
+                alt="Courses — featured screen"
+                loading="eager"
+                className="block w-full"
+              />
             </div>
-            <div className="mt-1.5 text-base font-medium md:text-lg">
-              Courses dashboard
+            <div className="mx-auto mt-6 max-w-[280px] text-center">
+              <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                Featured
+              </div>
+              <div className="mt-1.5 text-sm font-medium md:text-base">
+                Courses dashboard
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="mb-12 grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-12">
+        <div className="mt-24 mb-12 grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-12">
           <div className="md:col-span-5">
             <div className="text-sm uppercase tracking-[0.25em] text-[#CBEE4C]">
               Other screens
