@@ -717,6 +717,7 @@ export function GradientWave({
     if (reducedMotion) return
     if (!containerRef.current) return
 
+    const container = containerRef.current
     const canvas = document.createElement('canvas')
     Object.assign(canvas.style, {
       position: 'absolute',
@@ -726,32 +727,49 @@ export function GradientWave({
       height: '100%',
       display: 'block',
     })
-    containerRef.current.appendChild(canvas)
-    const container = containerRef.current
 
+    // Build the Gradient (which creates the WebGL context internally) BEFORE
+    // attaching the canvas to the DOM. If WebGL is unavailable / blacklisted
+    // the constructor throws and we leave the container's CSS-gradient fallback
+    // visible. Avoids a black empty-canvas overlay on machines without WebGL.
+    let gradient: Gradient | null = null
     try {
-      const gradient = new Gradient(canvas, colors)
-      gradientRef.current = gradient
-
-      gradient.mesh.material.uniforms.u_shadow_power.value = shadowPower
-      gradient.mesh.material.uniforms.u_darken_top.value = darkenTop ? 1 : 0
-      gradient.mesh.material.uniforms.u_global.value.noiseFreq.value =
-        noiseFrequency
-      gradient.mesh.material.uniforms.u_global.value.noiseSpeed.value =
-        noiseSpeed
-
-      Object.assign(gradient.mesh.material.uniforms.u_vertDeform.value, {
-        ...gradient.mesh.material.uniforms.u_vertDeform.value,
-        ...deform,
-      })
-
-      if (isPlaying) gradient.start()
+      gradient = new Gradient(canvas, colors)
     } catch (error) {
-      console.error('Failed to initialize gradient:', error)
+      console.warn('GradientWave: WebGL unavailable, using CSS fallback.', error)
+      return
     }
 
+    gradientRef.current = gradient
+    container.appendChild(canvas)
+
+    gradient.mesh.material.uniforms.u_shadow_power.value = shadowPower
+    gradient.mesh.material.uniforms.u_darken_top.value = darkenTop ? 1 : 0
+    gradient.mesh.material.uniforms.u_global.value.noiseFreq.value =
+      noiseFrequency
+    gradient.mesh.material.uniforms.u_global.value.noiseSpeed.value =
+      noiseSpeed
+
+    Object.assign(gradient.mesh.material.uniforms.u_vertDeform.value, {
+      ...gradient.mesh.material.uniforms.u_vertDeform.value,
+      ...deform,
+    })
+
+    // Fall back to the CSS gradient if the GPU resets the context mid-session.
+    const onContextLost = (e: Event) => {
+      e.preventDefault()
+      gradient?.stop()
+      if (container.contains(canvas)) container.removeChild(canvas)
+      gradientRef.current = null
+    }
+    canvas.addEventListener('webglcontextlost', onContextLost)
+
+    if (isPlaying) gradient.start()
+
     return () => {
-      gradientRef.current?.stop()
+      canvas.removeEventListener('webglcontextlost', onContextLost)
+      gradient?.stop()
+      gradientRef.current = null
       if (container.contains(canvas)) {
         container.removeChild(canvas)
       }
@@ -780,27 +798,23 @@ export function GradientWave({
     }
   }, [inView, isPlaying])
 
-  // Reduced-motion fallback: static CSS gradient using the first/last colors.
-  // No WebGL, no animation — instant render, zero ongoing cost.
-  if (reducedMotion) {
-    const a = colors[0] ?? '#000'
-    const b = colors[Math.floor(colors.length / 2)] ?? '#888'
-    const c = colors[colors.length - 1] ?? '#fff'
-    return (
-      <div
-        ref={containerRef}
-        className={`absolute inset-0 z-0 w-full h-full overflow-hidden ${className}`}
-        style={{
-          backgroundImage: `linear-gradient(135deg, ${a} 0%, ${b} 50%, ${c} 100%)`,
-        }}
-      />
-    )
-  }
+  // Always paint a static CSS gradient on the container — this is the
+  // fallback that shows when:
+  //   • prefers-reduced-motion is set (WebGL never initialised)
+  //   • WebGL is unavailable / blacklisted on the user's GPU
+  //   • the GPU context is lost mid-session
+  // When WebGL works, the opaque canvas mesh draws on top and hides this.
+  const a = colors[0] ?? '#000'
+  const b = colors[Math.floor(colors.length / 2)] ?? '#888'
+  const c = colors[colors.length - 1] ?? '#fff'
 
   return (
     <div
       ref={containerRef}
       className={`absolute inset-0 z-0 w-full h-full overflow-hidden ${className}`}
+      style={{
+        backgroundImage: `linear-gradient(135deg, ${a} 0%, ${b} 50%, ${c} 100%)`,
+      }}
     />
   )
 }
