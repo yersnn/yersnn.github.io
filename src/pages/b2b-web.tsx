@@ -60,7 +60,10 @@ const sections: Section[] = [
 
 export function B2BWebPage() {
   return (
-    <section className="relative w-full bg-background pt-32 pb-32">
+    <section
+      data-theme="light"
+      className="relative w-full bg-background pt-32 pb-32 text-foreground"
+    >
       <div className="mx-auto max-w-[1600px] px-12">
         <div className="mb-12">
           <div className="mb-4 text-sm uppercase tracking-[0.25em] text-[#CBEE4C]">

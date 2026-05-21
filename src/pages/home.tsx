@@ -1,48 +1,30 @@
 import { Link } from 'react-router-dom'
 import { GradientWave } from '@/components/ui/gradient-wave'
-import { cn } from '@/lib/utils'
 
-type Medium = 'web' | 'mobile'
-
-const projects: {
-  href: string
-  label: string
-  tag: string
-  blurb: string
-  img: string
-  medium: Medium
-}[] = [
+const projects = [
   {
     href: '/ielts',
     label: 'IELTS Prep',
     tag: 'Web app',
     blurb: 'Gamified IELTS prep with time-aware skies and a pixel cat.',
-    img: '/themes/theme-1.png',
-    medium: 'web',
   },
   {
     href: '/alims',
     label: 'Alims B2C',
     tag: 'Mobile · iOS · Android',
     blurb: 'Companion app for a test-prep platform.',
-    img: '/alims/screen-1.png',
-    medium: 'mobile',
   },
   {
     href: '/b2b-mobile',
     label: 'Alims B2B Mobile',
     tag: 'Mobile · iOS · Android',
     blurb: 'School app for students and parents.',
-    img: '/b2b-mobile/screen-1.png',
-    medium: 'mobile',
   },
   {
     href: '/b2b-web',
     label: 'Alims B2B Web',
     tag: 'Web',
     blurb: 'School platform for teachers and students.',
-    img: '/b2b-web/teacher-3.jpg',
-    medium: 'web',
   },
 ]
 
@@ -114,44 +96,34 @@ export function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-10">
-            {projects.map((p, i) => (
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
+            {projects.map((p) => (
               <Link
                 key={p.href}
                 to={p.href}
-                className="cursor-target group block overflow-hidden rounded-2xl border border-border bg-card shadow-xl transition-colors hover:border-[#CBEE4C]/40"
+                className="cursor-target group block rounded-2xl border border-border bg-card p-8 transition-colors hover:border-[#CBEE4C]/40 md:p-10"
               >
-                <div className="relative h-72 overflow-hidden bg-[#0a0a0c] md:h-80">
-                  <img
-                    src={p.img}
-                    alt={p.label}
-                    loading={i < 2 ? 'eager' : 'lazy'}
-                    className={cn(
-                      'absolute inset-0 m-auto transition-transform duration-500 group-hover:scale-[1.04]',
-                      p.medium === 'mobile'
-                        ? 'h-full w-auto object-contain'
-                        : 'h-full w-full object-cover',
-                    )}
-                  />
-                </div>
-                <div className="flex items-start justify-between gap-6 p-6 md:p-7">
+                <div className="flex h-full flex-col justify-between gap-12">
                   <div>
                     <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
                       {p.tag}
                     </div>
-                    <h3 className="mt-2 text-xl font-semibold tracking-tight md:text-2xl">
+                    <h3 className="mt-4 text-3xl font-semibold tracking-tight md:text-4xl">
                       {p.label}
                     </h3>
-                    <p className="mt-2 max-w-md text-sm text-muted-foreground md:text-base">
+                    <p className="mt-3 max-w-md text-base text-muted-foreground md:text-lg">
                       {p.blurb}
                     </p>
                   </div>
-                  <span
-                    aria-hidden="true"
-                    className="mt-1 shrink-0 text-2xl transition-all duration-200 group-hover:translate-x-1 group-hover:text-[#CBEE4C] md:text-3xl"
-                  >
-                    →
-                  </span>
+                  <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors group-hover:text-[#CBEE4C]">
+                    View project
+                    <span
+                      aria-hidden="true"
+                      className="text-lg transition-transform group-hover:translate-x-1"
+                    >
+                      →
+                    </span>
+                  </div>
                 </div>
               </Link>
             ))}
