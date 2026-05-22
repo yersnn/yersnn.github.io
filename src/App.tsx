@@ -13,16 +13,12 @@ const AlimsPage = lazy(() =>
 const B2BMobilePage = lazy(() =>
   import('@/pages/b2b-mobile').then((m) => ({ default: m.B2BMobilePage })),
 )
-const B2BWebPage = lazy(() =>
-  import('@/pages/b2b-web').then((m) => ({ default: m.B2BWebPage })),
-)
 
 const navItems = [
   { label: 'Main', href: '/' },
   { label: 'IELTS', href: '/ielts' },
-  { label: 'B2C App', href: '/alims' },
-  { label: 'B2B App', href: '/b2b-mobile' },
-  { label: 'B2B Web', href: '/b2b-web' },
+  { label: 'Test Prep', href: '/alims' },
+  { label: 'School', href: '/b2b-mobile' },
 ]
 
 function PageFallback() {
@@ -55,7 +51,6 @@ function Layout() {
           <Route path="/ielts" element={<IeltsPage />} />
           <Route path="/alims" element={<AlimsPage />} />
           <Route path="/b2b-mobile" element={<B2BMobilePage />} />
-          <Route path="/b2b-web" element={<B2BWebPage />} />
         </Routes>
       </Suspense>
     </>

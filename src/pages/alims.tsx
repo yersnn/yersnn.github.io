@@ -32,10 +32,10 @@ export function AlimsPage() {
             Project
           </div>
           <h1 className="text-5xl font-semibold tracking-tight md:text-7xl">
-            Alims B2C
+            Test Prep App
           </h1>
           <p className="mt-5 text-lg text-muted-foreground md:text-2xl">
-            Mobile companion app for a test-prep platform.
+            Mobile companion for IELTS and SAT learners.
           </p>
         </div>
 
@@ -116,7 +116,7 @@ export function AlimsPage() {
         </div>
       </div>
 
-      <NextProject label="Alims B2B Mobile" href="/b2b-mobile" />
+      <NextProject label="School App" href="/b2b-mobile" />
     </section>
   )
 }

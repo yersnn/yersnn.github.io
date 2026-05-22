@@ -3,7 +3,6 @@ import { ProjectMeta } from '@/components/ui/project-meta'
 import { NextProject } from '@/components/ui/next-project'
 import { SkyShowcase } from '@/components/ielts/sky-showcase'
 import { ThemeShowcase } from '@/components/ielts/theme-showcase'
-import { CatShowcase } from '@/components/ielts/cat-showcase'
 import { LessonsShowcase } from '@/components/ielts/lessons-showcase'
 import { MocksShowcase } from '@/components/ielts/mocks-showcase'
 
@@ -95,11 +94,8 @@ export function IeltsPage() {
             <span className="font-semibold text-[#CBEE4C]">
               ELO rating system
             </span>{' '}
-            across Reading, Writing, Speaking, and Listening, raise a{' '}
-            <span className="font-semibold text-[#CBEE4C]">
-              pixel cat companion
-            </span>{' '}
-            as they progress, and personalize their experience with rich{' '}
+            across Reading, Writing, Speaking, and Listening, and personalize
+            their experience with rich{' '}
             <span className="font-semibold text-[#CBEE4C]">
               theme customization
             </span>{' '}
@@ -120,17 +116,9 @@ export function IeltsPage() {
         <Section
           eyebrow="Customization"
           title="Theme presets"
-          description="Eight color and mode combinations — Default, Purple, Pink, Blue in light and dark. Hover any preset to pop it forward."
+          description="Ten variations across dark and light modes — hover any preset to pop it forward."
         >
           <ThemeShowcase />
-        </Section>
-
-        <Section
-          eyebrow="Pixel companion"
-          title="Cat customization"
-          description="Three cat styles. Sixteen accessories — bows, glasses, wings, antlers, santa hats. Click any cat to enlarge."
-        >
-          <CatShowcase />
         </Section>
 
         <Section
@@ -150,7 +138,7 @@ export function IeltsPage() {
         </Section>
       </div>
 
-      <NextProject label="Alims B2C" href="/alims" />
+      <NextProject label="Test Prep App" href="/alims" />
     </section>
   )
 }

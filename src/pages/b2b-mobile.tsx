@@ -31,10 +31,11 @@ export function B2BMobilePage() {
             Project
           </div>
           <h1 className="text-5xl font-semibold tracking-tight md:text-7xl">
-            Alims B2B Mobile
+            School App
           </h1>
           <p className="mt-5 text-lg text-muted-foreground md:text-2xl">
-            School companion for students and parents.
+            Mobile companion for students and parents tracking school
+            performance.
           </p>
         </div>
 
@@ -95,7 +96,7 @@ export function B2BMobilePage() {
         </div>
       </div>
 
-      <NextProject label="Alims B2B Web" href="/b2b-web" />
+      <NextProject label="IELTS Prep" href="/ielts" />
     </section>
   )
 }

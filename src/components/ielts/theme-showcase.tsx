@@ -2,14 +2,16 @@ import { useState } from 'react'
 import { useInView } from '@/lib/use-in-view'
 
 const themes = [
-  { src: '/themes/theme-1.png', label: 'Default · Dark' },
-  { src: '/themes/theme-2.png', label: 'Default · Light' },
-  { src: '/themes/theme-3.png', label: 'Purple · Dark' },
-  { src: '/themes/theme-4.png', label: 'Purple · Light' },
-  { src: '/themes/theme-5.png', label: 'Pink · Dark' },
-  { src: '/themes/theme-6.png', label: 'Pink · Light' },
-  { src: '/themes/theme-7.png', label: 'Blue · Dark' },
-  { src: '/themes/theme-8.png', label: 'Blue · Light' },
+  { src: '/themes/dark-1.jpg', label: 'Dark · 01' },
+  { src: '/themes/light-1.jpg', label: 'Light · 01' },
+  { src: '/themes/dark-2.jpg', label: 'Dark · 02' },
+  { src: '/themes/light-2.jpg', label: 'Light · 02' },
+  { src: '/themes/dark-3.jpg', label: 'Dark · 03' },
+  { src: '/themes/light-3.jpg', label: 'Light · 03' },
+  { src: '/themes/dark-4.jpg', label: 'Dark · 04' },
+  { src: '/themes/light-4.jpg', label: 'Light · 04' },
+  { src: '/themes/dark-5.jpg', label: 'Dark · 05' },
+  { src: '/themes/light-5.jpg', label: 'Light · 05' },
 ]
 
 const ORBIT_DURATION = 55
@@ -35,7 +37,7 @@ export function ThemeShowcase() {
               Theme presets
             </div>
             <div className="mt-2 text-3xl font-semibold tracking-tight md:text-4xl">
-              8 variations
+              10 variations
             </div>
             <div className="mt-3 text-xs text-muted-foreground">
               Hover to pop.

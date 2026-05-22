@@ -6,25 +6,19 @@ const projects = [
     href: '/ielts',
     label: 'IELTS Prep',
     tag: 'Web app',
-    blurb: 'Gamified IELTS prep with time-aware skies and a pixel cat.',
+    blurb: 'Gamified IELTS prep with time-aware skies and theme presets.',
   },
   {
     href: '/alims',
-    label: 'Alims B2C',
+    label: 'Test Prep App',
     tag: 'Mobile · iOS · Android',
-    blurb: 'Companion app for a test-prep platform.',
+    blurb: 'Mobile companion for IELTS and SAT learners.',
   },
   {
     href: '/b2b-mobile',
-    label: 'Alims B2B Mobile',
+    label: 'School App',
     tag: 'Mobile · iOS · Android',
-    blurb: 'School app for students and parents.',
-  },
-  {
-    href: '/b2b-web',
-    label: 'Alims B2B Web',
-    tag: 'Web',
-    blurb: 'School platform for teachers and students.',
+    blurb: 'Mobile companion for students and parents tracking school performance.',
   },
 ]
 
@@ -87,7 +81,7 @@ export function HomePage() {
                 Selected work
               </div>
               <h2 className="mt-2 text-3xl font-semibold tracking-tight md:text-5xl">
-                Four projects, one ecosystem
+                Three projects, one ecosystem
               </h2>
             </div>
             <p className="text-base leading-relaxed text-muted-foreground md:col-span-7 md:text-lg md:leading-relaxed">
@@ -96,7 +90,7 @@ export function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
             {projects.map((p) => (
               <Link
                 key={p.href}
