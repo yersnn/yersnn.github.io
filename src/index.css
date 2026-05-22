@@ -222,6 +222,129 @@
   letter-spacing: 0.04em;
 }
 
+/* ─── Cyberpunk animations ─────────────────────────────────────────── */
+
+/* RGB-shift glitch: periodic chromatic-aberration jolt on text */
+@keyframes glitch-shift {
+  0%,
+  92%,
+  100% {
+    text-shadow: var(--cyber-glow-lime);
+    transform: translate(0, 0);
+  }
+  93% {
+    text-shadow:
+      -2px 0 var(--cyber-magenta),
+      2px 0 var(--cyber-cyan);
+    transform: translate(-1px, 0);
+  }
+  94% {
+    text-shadow:
+      2px 0 var(--cyber-magenta),
+      -2px 0 var(--cyber-cyan);
+    transform: translate(1px, 0);
+  }
+  95% {
+    text-shadow:
+      -1px 0 var(--cyber-magenta),
+      1px 0 var(--cyber-cyan);
+    transform: translate(-0.5px, 1px);
+  }
+  96% {
+    text-shadow: var(--cyber-glow-lime);
+    transform: translate(0, 0);
+  }
+}
+.glitch-text {
+  animation: glitch-shift 6s infinite;
+}
+
+/* Pulsing neon ring — for bracket corners + ornaments */
+@keyframes cyber-pulse {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 6px rgba(203, 238, 76, 0.45))
+      drop-shadow(0 0 14px rgba(203, 238, 76, 0.15));
+    opacity: 1;
+  }
+  50% {
+    filter: drop-shadow(0 0 14px rgba(203, 238, 76, 0.85))
+      drop-shadow(0 0 28px rgba(203, 238, 76, 0.35));
+    opacity: 0.85;
+  }
+}
+.cyber-pulse {
+  animation: cyber-pulse 2.6s ease-in-out infinite;
+}
+
+/* Marquee scroll for status ticker bars */
+@keyframes ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Scanline scroll — slow vertical drift of horizontal lines */
+@keyframes scanline-drift {
+  from {
+    background-position-y: 0;
+  }
+  to {
+    background-position-y: 12px;
+  }
+}
+.scanlines-drift {
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent 0,
+    transparent 2px,
+    rgba(255, 255, 255, 0.035) 2px,
+    rgba(255, 255, 255, 0.035) 3px
+  );
+  animation: scanline-drift 1.6s linear infinite;
+}
+
+/* Slow hue rotate — for neon ornaments */
+@keyframes hue-rotate {
+  from {
+    filter: hue-rotate(0deg);
+  }
+  to {
+    filter: hue-rotate(360deg);
+  }
+}
+.hue-shift {
+  animation: hue-rotate 12s linear infinite;
+}
+
+/* Holographic shimmer on text — moving gradient */
+@keyframes holo-shimmer {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 200% 50%;
+  }
+}
+.holo-text {
+  background: linear-gradient(
+    90deg,
+    var(--cyber-accent) 0%,
+    var(--cyber-cyan) 25%,
+    var(--cyber-magenta) 50%,
+    var(--cyber-cyan) 75%,
+    var(--cyber-accent) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: holo-shimmer 5s linear infinite;
+}
+
 * {
   box-sizing: border-box;
 }

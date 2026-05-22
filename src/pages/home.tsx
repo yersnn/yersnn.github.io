@@ -8,6 +8,13 @@ import {
   ChevronCta,
   CyberPanel,
 } from '@/components/ui/cyber'
+import {
+  GlitchText,
+  CyberOrnament,
+  StatusTicker,
+  CountUp,
+  DecodeText,
+} from '@/components/ui/cyber-fx'
 
 const projects = [
   {
@@ -71,7 +78,11 @@ export function HomePage() {
   return (
     <div className="relative cyber-grid-fine">
       {/* ─── Hero ──────────────────────────────────────────────────── */}
-      <header className="relative bg-background pt-40 pb-20">
+      <header className="relative overflow-hidden bg-background pt-40 pb-20">
+        {/* Arcane-inspired neon ornament behind the title */}
+        <CyberOrnament className="pointer-events-none absolute inset-x-0 top-24 mx-auto h-[560px] w-full max-w-[1500px] opacity-60" />
+        <div className="scanlines-drift pointer-events-none absolute inset-0 mix-blend-overlay opacity-50" />
+
         <div className="relative mx-auto max-w-[1600px] px-12">
           <div className="mb-6 flex items-center gap-4">
             <HUDLabel id="000">Portfolio</HUDLabel>
@@ -83,7 +94,7 @@ export function HomePage() {
             </StatusBadge>
           </div>
           <h1 className="text-5xl font-semibold tracking-tight md:text-8xl">
-            Yersultan Zhumalin
+            <GlitchText>Yersultan Zhumalin</GlitchText>
           </h1>
           <p className="mt-6 max-w-3xl text-lg leading-relaxed text-foreground md:text-3xl md:leading-snug">
             UI/UX designer based in Astana, Kazakhstan. I design thoughtful
@@ -98,8 +109,22 @@ export function HomePage() {
             and mobile companion apps.
           </p>
         </div>
-        <div className="mt-12 h-2 hud-stripes" aria-hidden="true" />
       </header>
+
+      {/* Status ticker bar (cyberpunk dashboard staple) */}
+      <StatusTicker
+        items={[
+          'SYSTEM ONLINE',
+          'DOSSIER LOADED · 003 ACTIVE',
+          'SIGNAL: STRONG',
+          'PROTOCOL // 002',
+          'NIGHT CITY · 2026',
+          'CAPABILITY RADAR · v0.6.2',
+          'UPLINK READY',
+          'NO BIOLOGICAL DATA WAS FOUND',
+        ]}
+        speed="slow"
+      />
 
       {/* ─── Selected work ─────────────────────────────────────────── */}
       <div className="relative bg-background">
@@ -108,7 +133,7 @@ export function HomePage() {
             <div className="md:col-span-5">
               <HUDLabel id="001">Selected work</HUDLabel>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
-                Three projects, one ecosystem
+                <DecodeText text="Three projects, one ecosystem" />
               </h2>
             </div>
             <p className="text-base leading-relaxed text-muted-foreground md:col-span-7 md:text-lg md:leading-relaxed">
@@ -162,7 +187,7 @@ export function HomePage() {
             <div className="md:col-span-5">
               <HUDLabel id="002">Why me</HUDLabel>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
-                What happens when you hire me
+                <DecodeText text="What happens when you hire me" />
               </h2>
             </div>
             <p className="text-base leading-relaxed text-muted-foreground md:col-span-7 md:text-lg md:leading-relaxed">
@@ -192,7 +217,7 @@ export function HomePage() {
                       </span>
                       <span className="flex items-baseline gap-3">
                         <span className="text-2xl font-semibold text-[#CBEE4C] cyber-glow md:text-3xl">
-                          {s.value}
+                          <CountUp value={s.value} />
                         </span>
                         <span className="text-xs text-muted-foreground/70">
                           /10
