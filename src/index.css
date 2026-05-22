@@ -163,19 +163,42 @@
   background-image: repeating-linear-gradient(
     45deg,
     var(--cyber-accent) 0,
-    var(--cyber-accent) 6px,
-    transparent 6px,
-    transparent 14px
+    var(--cyber-accent) 8px,
+    #0a0a0c 8px,
+    #0a0a0c 16px
   );
 }
 .hud-stripes-faint {
   background-image: repeating-linear-gradient(
     45deg,
-    rgba(203, 238, 76, 0.35) 0,
-    rgba(203, 238, 76, 0.35) 4px,
-    transparent 4px,
-    transparent 10px
+    rgba(203, 238, 76, 0.6) 0,
+    rgba(203, 238, 76, 0.6) 6px,
+    transparent 6px,
+    transparent 14px
   );
+}
+.hud-stripes-danger {
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--cyber-danger) 0,
+    var(--cyber-danger) 8px,
+    #0a0a0c 8px,
+    #0a0a0c 16px
+  );
+}
+
+/* Faint cyber grid backdrop — atmospheric overlay for page bg */
+.cyber-grid {
+  background-image:
+    linear-gradient(rgba(203, 238, 76, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(203, 238, 76, 0.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+.cyber-grid-fine {
+  background-image:
+    linear-gradient(rgba(203, 238, 76, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(203, 238, 76, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
 /* Subtle horizontal scanlines — sits over hero/atmospheric sections */

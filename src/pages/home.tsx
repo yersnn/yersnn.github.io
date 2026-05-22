@@ -2,6 +2,12 @@ import { Link } from 'react-router-dom'
 import { HUDLabel } from '@/components/ui/hud-label'
 import { HazardDivider } from '@/components/ui/hazard-divider'
 import { StatRadar } from '@/components/ui/stat-radar'
+import {
+  BracketCorners,
+  StatusBadge,
+  ChevronCta,
+  CyberPanel,
+} from '@/components/ui/cyber'
 
 const projects = [
   {
@@ -9,14 +15,16 @@ const projects = [
     label: 'IELTS Prep',
     tag: 'Web app',
     blurb: 'Gamified IELTS prep with time-aware skies and theme presets.',
-    code: '001',
+    code: 'DOSSIER · 001',
+    status: 'ACTIVE',
   },
   {
     href: '/alims',
     label: 'Test Prep App',
     tag: 'Mobile · iOS · Android',
     blurb: 'Mobile companion for IELTS and SAT learners.',
-    code: '002',
+    code: 'DOSSIER · 002',
+    status: 'BUILDING',
   },
   {
     href: '/b2b-mobile',
@@ -24,7 +32,8 @@ const projects = [
     tag: 'Mobile · iOS · Android',
     blurb:
       'Mobile companion for students and parents tracking school performance.',
-    code: '003',
+    code: 'DOSSIER · 003',
+    status: 'BUILDING',
   },
 ]
 
@@ -60,13 +69,19 @@ const contacts = [
 
 export function HomePage() {
   return (
-    <div className="relative">
+    <div className="relative cyber-grid-fine">
       {/* ─── Hero ──────────────────────────────────────────────────── */}
-      <header className="relative bg-background pt-40 pb-32">
+      <header className="relative bg-background pt-40 pb-20">
         <div className="relative mx-auto max-w-[1600px] px-12">
-          <HUDLabel id="000" className="mb-6">
-            Portfolio
-          </HUDLabel>
+          <div className="mb-6 flex items-center gap-4">
+            <HUDLabel id="000">Portfolio</HUDLabel>
+            <StatusBadge tone="lime" variant="solid">
+              ONLINE
+            </StatusBadge>
+            <StatusBadge tone="cyan" variant="outline">
+              v2.6.1
+            </StatusBadge>
+          </div>
           <h1 className="text-5xl font-semibold tracking-tight md:text-8xl">
             Yersultan Zhumalin
           </h1>
@@ -83,13 +98,12 @@ export function HomePage() {
             and mobile companion apps.
           </p>
         </div>
+        <div className="mt-12 h-2 hud-stripes" aria-hidden="true" />
       </header>
 
       {/* ─── Selected work ─────────────────────────────────────────── */}
       <div className="relative bg-background">
-        <div className="mx-auto max-w-[1600px] px-12 pt-32">
-          <HazardDivider label="DOSSIER" className="mb-12" />
-
+        <div className="mx-auto max-w-[1600px] px-12 pt-24">
           <div className="mb-12 grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-12">
             <div className="md:col-span-5">
               <HUDLabel id="001">Selected work</HUDLabel>
@@ -103,23 +117,25 @@ export function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-8">
             {projects.map((p) => (
               <Link
                 key={p.href}
                 to={p.href}
-                className="cursor-target group relative block bg-card transition-colors hover:bg-card/80"
+                className="cursor-target group relative block"
               >
-                {/* Cyberpunk angular border */}
-                <div
-                  aria-hidden="true"
-                  className="hud-stripes-faint absolute inset-0 opacity-30 transition-opacity group-hover:opacity-60"
-                />
-                <div className="relative clip-cyber border border-border bg-card p-8 transition-colors group-hover:border-[#CBEE4C]/60 md:p-10">
-                  <div className="flex h-full flex-col justify-between gap-12">
+                <BracketCorners />
+                <div className="relative border border-border bg-card transition-colors group-hover:border-[#CBEE4C]/60">
+                  <div className="font-hud flex items-center justify-between border-b border-border bg-card/80 px-5 py-2.5 text-[10px] uppercase tracking-[0.3em]">
+                    <span className="text-[#CBEE4C]">▸ {p.code}</span>
+                    <span className="text-muted-foreground">
+                      {p.status}
+                    </span>
+                  </div>
+                  <div className="flex h-full flex-col justify-between gap-12 p-8 md:p-10">
                     <div>
                       <div className="font-hud text-xs uppercase tracking-[0.25em] text-muted-foreground">
-                        [{p.code}] · {p.tag}
+                        {p.tag}
                       </div>
                       <h3 className="mt-4 text-3xl font-semibold tracking-tight md:text-4xl">
                         {p.label}
@@ -128,14 +144,8 @@ export function HomePage() {
                         {p.blurb}
                       </p>
                     </div>
-                    <div className="font-hud flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-muted-foreground transition-colors group-hover:text-[#CBEE4C]">
-                      Enter
-                      <span
-                        aria-hidden="true"
-                        className="text-lg transition-transform group-hover:translate-x-1"
-                      >
-                        ▸▸
-                      </span>
+                    <div className="transition-colors group-hover:text-[#CBEE4C]">
+                      <ChevronCta>Enter dossier</ChevronCta>
                     </div>
                   </div>
                 </div>
@@ -165,18 +175,19 @@ export function HomePage() {
           <div className="grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-12">
             {/* Stat list */}
             <div className="md:col-span-5">
-              <div className="relative clip-cyber border border-[#CBEE4C]/40 bg-card/60 p-6 md:p-8">
-                <div className="font-hud mb-4 flex items-center justify-between text-[10px] uppercase tracking-[0.3em] text-[#CBEE4C]">
-                  <span>▸ PROFILE</span>
-                  <span className="text-muted-foreground">PROTOCOL // 002</span>
-                </div>
-                <ul className="space-y-3">
+              <CyberPanel
+                label="PROFILE"
+                code="PROTOCOL // 002"
+                bracketColor="#CBEE4C"
+                hazardStrip
+              >
+                <ul className="space-y-3 p-6 md:p-8">
                   {stats.map((s) => (
                     <li
                       key={s.label}
                       className="font-hud flex items-baseline justify-between gap-4 border-b border-border/60 pb-3 text-sm last:border-0 last:pb-0"
                     >
-                      <span className="text-muted-foreground tracking-[0.15em]">
+                      <span className="tracking-[0.15em] text-muted-foreground">
                         {s.label}
                       </span>
                       <span className="flex items-baseline gap-3">
@@ -190,23 +201,25 @@ export function HomePage() {
                     </li>
                   ))}
                 </ul>
-                <div className="font-hud mt-6 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+                <div className="font-hud border-t border-border bg-card/40 px-6 py-3 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
                   ▸ NO BIOLOGICAL DATA WAS FOUND
                 </div>
-              </div>
+              </CyberPanel>
             </div>
 
             {/* Radar */}
             <div className="md:col-span-7">
-              <div className="relative clip-cyber border border-border bg-card/40 p-6 md:p-10">
-                <div className="font-hud mb-2 flex items-center justify-between text-[10px] uppercase tracking-[0.3em] text-[#CBEE4C]">
-                  <span>▸ CAPABILITY RADAR</span>
-                  <span className="text-muted-foreground">v0.6.2</span>
+              <CyberPanel
+                label="CAPABILITY RADAR"
+                code="v0.6.2"
+                bracketColor="#5EEAD4"
+              >
+                <div className="p-6 md:p-10">
+                  <div className="mx-auto aspect-square w-full max-w-[440px]">
+                    <StatRadar stats={stats} />
+                  </div>
                 </div>
-                <div className="mx-auto aspect-square w-full max-w-[440px]">
-                  <StatRadar stats={stats} />
-                </div>
-              </div>
+              </CyberPanel>
             </div>
           </div>
         </div>
@@ -248,20 +261,29 @@ export function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             {contacts.map((c) => (
               <a
                 key={c.label}
                 href={c.href}
                 target={c.href.startsWith('http') ? '_blank' : undefined}
                 rel={c.href.startsWith('http') ? 'noreferrer' : undefined}
-                className="cursor-target group block clip-cyber-sm border border-border bg-card p-6 transition-colors hover:border-[#CBEE4C]/60"
+                className="cursor-target group relative block"
               >
-                <div className="font-hud text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-                  [{c.code}] {c.label}
-                </div>
-                <div className="mt-2 text-base font-medium transition-colors group-hover:text-[#CBEE4C] md:text-lg">
-                  {c.value}
+                <BracketCorners />
+                <div className="relative border border-border bg-card transition-colors group-hover:border-[#CBEE4C]/60">
+                  <div className="font-hud flex items-center justify-between border-b border-border bg-card/80 px-4 py-2 text-[10px] uppercase tracking-[0.3em]">
+                    <span className="text-[#CBEE4C]">▸ [{c.code}]</span>
+                    <span className="text-muted-foreground">{c.label}</span>
+                  </div>
+                  <div className="p-6">
+                    <div className="text-base font-medium transition-colors group-hover:text-[#CBEE4C] md:text-lg">
+                      {c.value}
+                    </div>
+                    <div className="mt-4">
+                      <ChevronCta>Open uplink</ChevronCta>
+                    </div>
+                  </div>
                 </div>
               </a>
             ))}
