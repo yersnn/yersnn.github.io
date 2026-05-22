@@ -81,55 +81,30 @@ export function HomePage() {
         <div className="scanlines-drift pointer-events-none absolute inset-0 mix-blend-overlay opacity-40" />
 
         <div className="relative mx-auto max-w-[1600px] px-12">
-          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
-            {/* Text column */}
-            <div className="lg:col-span-7">
-              <div className="mb-6 flex flex-wrap items-center gap-3">
-                <HUDLabel id="000">Portfolio</HUDLabel>
-                <StatusBadge tone="lime" variant="solid">
-                  ONLINE
-                </StatusBadge>
-                <StatusBadge tone="cyan" variant="outline">
-                  v2.6.1
-                </StatusBadge>
-              </div>
-              <h1 className="text-5xl font-bold leading-[0.95] tracking-tight md:text-7xl xl:text-8xl">
-                <GlitchText>Yersultan Zhumalin</GlitchText>
-              </h1>
-              <p className="mt-6 max-w-3xl text-lg leading-relaxed text-foreground md:text-2xl md:leading-snug">
-                UI/UX designer based in Astana, Kazakhstan. I design thoughtful
-                interfaces — from{' '}
-                <span className="font-semibold text-[#CBEE4C] cyber-glow">
-                  gamified IELTS prep
-                </span>{' '}
-                to{' '}
-                <span className="font-semibold text-[#CBEE4C] cyber-glow">
-                  school platforms
-                </span>{' '}
-                and mobile companion apps.
-              </p>
-            </div>
-
-            {/* Arcane card — kept at natural aspect on the right */}
-            <div className="relative mx-auto w-full max-w-[420px] lg:col-span-5">
-              <div className="relative aspect-[560/685] w-full">
-                <img
-                  src="/cyber/arcane-frame.png"
-                  alt=""
-                  aria-hidden="true"
-                  className="arcane-drift pointer-events-none absolute inset-0 h-full w-full"
-                  style={{ mixBlendMode: 'lighten' }}
-                />
-                <img
-                  src="/cyber/arcane-frame.png"
-                  alt=""
-                  aria-hidden="true"
-                  className="arcane-glitch pointer-events-none absolute inset-0 h-full w-full opacity-90"
-                  style={{ mixBlendMode: 'lighten' }}
-                />
-              </div>
-            </div>
+          <div className="mb-6 flex flex-wrap items-center gap-3">
+            <HUDLabel id="000">Portfolio</HUDLabel>
+            <StatusBadge tone="lime" variant="solid">
+              ONLINE
+            </StatusBadge>
+            <StatusBadge tone="cyan" variant="outline">
+              v2.6.1
+            </StatusBadge>
           </div>
+          <h1 className="text-5xl font-bold leading-[0.95] tracking-tight md:text-7xl xl:text-8xl">
+            <GlitchText>Yersultan Zhumalin</GlitchText>
+          </h1>
+          <p className="mt-6 max-w-3xl text-lg leading-relaxed text-foreground md:text-2xl md:leading-snug">
+            UI/UX designer based in Astana, Kazakhstan. I design thoughtful
+            interfaces — from{' '}
+            <span className="font-semibold text-[#CBEE4C] cyber-glow">
+              gamified IELTS prep
+            </span>{' '}
+            to{' '}
+            <span className="font-semibold text-[#CBEE4C] cyber-glow">
+              school platforms
+            </span>{' '}
+            and mobile companion apps.
+          </p>
         </div>
       </header>
 
