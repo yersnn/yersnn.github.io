@@ -134,6 +134,10 @@
   letter-spacing: 3px;
   position: relative;
   font-weight: 700;
+  /* .cn-btn is a <span> — must be block so width/height: 100% take effect,
+     otherwise the polygon-clipped :before/:after shrink to just the text. */
+  display: block;
+  box-sizing: border-box;
   width: 100%;
   height: 100%;
   line-height: 80px;

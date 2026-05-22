@@ -1,7 +1,6 @@
 import { ProjectMeta } from '@/components/ui/project-meta'
 import { NextProject } from '@/components/ui/next-project'
 import { HUDLabel } from '@/components/ui/hud-label'
-import { ContainerScroll } from '@/components/ui/container-scroll-animation'
 import { cn } from '@/lib/utils'
 
 const screens = [
@@ -55,30 +54,7 @@ export function B2BMobilePage() {
         </div>
       </div>
 
-      {/* ContainerScroll hero — first screen tilts into view */}
-      <ContainerScroll
-        titleComponent={
-          <div className="mb-4">
-            <div className="font-hud text-xs uppercase tracking-[0.3em] text-[#CBEE4C]">
-              ▸ HOME
-            </div>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
-              The student's home screen
-            </h2>
-          </div>
-        }
-      >
-        <div className="flex h-full w-full items-center justify-center bg-gradient-to-b from-white to-[#f1f5f9] p-6">
-          <img
-            src={screens[0]}
-            alt="B2B Mobile — home screen"
-            loading="eager"
-            className="block max-h-full w-auto object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.25)]"
-          />
-        </div>
-      </ContainerScroll>
-
-      <div className="relative overflow-hidden pb-24">
+      <div className="relative mt-32 overflow-hidden pb-24">
         <div
           className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[80%] bg-gradient-to-b from-[#CBEE4C]/5 to-transparent"
           aria-hidden="true"
