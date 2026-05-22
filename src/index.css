@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 @theme inline {
   --color-background: var(--background);
@@ -119,6 +120,83 @@
   to {
     transform: translateX(-50%);
   }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Cyberpunk design tokens
+   ───────────────────────────────────────────────────────────────────────── */
+:root {
+  --cyber-accent: #cbee4c;
+  --cyber-cyan: #5eead4;
+  --cyber-magenta: #ff48aa;
+  --cyber-danger: #ff453a;
+  --cyber-glow-lime: 0 0 18px rgba(203, 238, 76, 0.35);
+  --cyber-glow-cyan: 0 0 18px rgba(94, 234, 212, 0.4);
+  --font-mono:
+    'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* Angular clipped-corner panel — top-right + bottom-left chamfered */
+.clip-cyber {
+  clip-path: polygon(
+    0 0,
+    calc(100% - 18px) 0,
+    100% 18px,
+    100% 100%,
+    18px 100%,
+    0 calc(100% - 18px)
+  );
+}
+.clip-cyber-sm {
+  clip-path: polygon(
+    0 0,
+    calc(100% - 10px) 0,
+    100% 10px,
+    100% 100%,
+    10px 100%,
+    0 calc(100% - 10px)
+  );
+}
+
+/* Hazard diagonal stripes — used for dividers and decals */
+.hud-stripes {
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--cyber-accent) 0,
+    var(--cyber-accent) 6px,
+    transparent 6px,
+    transparent 14px
+  );
+}
+.hud-stripes-faint {
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(203, 238, 76, 0.35) 0,
+    rgba(203, 238, 76, 0.35) 4px,
+    transparent 4px,
+    transparent 10px
+  );
+}
+
+/* Subtle horizontal scanlines — sits over hero/atmospheric sections */
+.scanlines {
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent 0,
+    transparent 2px,
+    rgba(255, 255, 255, 0.025) 2px,
+    rgba(255, 255, 255, 0.025) 3px
+  );
+}
+
+.cyber-glow {
+  text-shadow: var(--cyber-glow-lime);
+}
+
+/* Mono utility helper — overrides Tailwind's font-mono with JetBrains. */
+.font-hud {
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
 }
 
 * {

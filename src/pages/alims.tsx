@@ -1,5 +1,6 @@
 import { ProjectMeta } from '@/components/ui/project-meta'
 import { NextProject } from '@/components/ui/next-project'
+import { HUDLabel } from '@/components/ui/hud-label'
 
 const screens = [
   '/alims/screen-1.png',
@@ -28,10 +29,8 @@ export function AlimsPage() {
     <section className="relative w-full bg-background pt-32 pb-32">
       <div className="mx-auto max-w-[1600px] px-12">
         <div className="mb-12">
-          <div className="mb-4 text-sm uppercase tracking-[0.25em] text-[#CBEE4C]">
-            Project
-          </div>
-          <h1 className="text-5xl font-semibold tracking-tight md:text-7xl">
+          <HUDLabel id="002">Project</HUDLabel>
+          <h1 className="mt-3 text-5xl font-semibold tracking-tight md:text-7xl">
             Test Prep App
           </h1>
           <p className="mt-5 text-lg text-muted-foreground md:text-2xl">
@@ -43,9 +42,7 @@ export function AlimsPage() {
 
         <div className="mt-16 grid grid-cols-1 items-start gap-12 md:mt-20 md:grid-cols-12 md:gap-16">
           <div className="md:col-span-7">
-            <div className="text-sm uppercase tracking-[0.25em] text-[#CBEE4C]">
-              The pitch
-            </div>
+            <HUDLabel id="A">The pitch</HUDLabel>
             <p className="mt-4 text-lg leading-relaxed text-foreground/80 md:text-2xl md:leading-relaxed">
               A mobile companion for students preparing for{' '}
               <span className="font-semibold text-[#CBEE4C]">IELTS</span>,{' '}
@@ -83,10 +80,8 @@ export function AlimsPage() {
 
         <div className="mt-24 mb-12 grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-12">
           <div className="md:col-span-5">
-            <div className="text-sm uppercase tracking-[0.25em] text-[#CBEE4C]">
-              Other screens
-            </div>
-            <h2 className="mt-2 text-3xl font-semibold tracking-tight md:text-5xl">
+            <HUDLabel id="B">Other screens</HUDLabel>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
               The rest of the app
             </h2>
           </div>
