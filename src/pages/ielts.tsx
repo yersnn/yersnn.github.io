@@ -7,6 +7,7 @@ import { SkyShowcase } from '@/components/ielts/sky-showcase'
 import { ThemeShowcase } from '@/components/ielts/theme-showcase'
 import { LessonsShowcase } from '@/components/ielts/lessons-showcase'
 import { MocksShowcase } from '@/components/ielts/mocks-showcase'
+import { ScreensCarousel } from '@/components/ielts/screens-carousel'
 
 const meta = [
   { label: 'Role', value: 'Product designer' },
@@ -76,20 +77,34 @@ function Section({
   )
 }
 
+const onboardingSteps = [
+  {
+    src: '/ielts-onboarding/step-1.png',
+    alt: 'Step 1 — choose a featured mode (Gamified / Sky)',
+  },
+  {
+    src: '/ielts-onboarding/step-2.png',
+    alt: 'Step 2 — choose a color theme',
+  },
+  {
+    src: '/ielts-onboarding/step-3.png',
+    alt: 'Step 3 — pick your pixel cat companion',
+  },
+]
+
 function StyleOnboarding() {
   return (
-    <div className="w-full">
-      <div className="font-hud mx-auto mb-4 flex max-w-[1600px] items-center justify-between px-12 text-[10px] uppercase tracking-[0.3em] text-[#CBEE4C]">
-        <span>▸ ONBOARDING // 3 STEPS</span>
-        <span className="text-muted-foreground">MODE · COLOR · CAT</span>
-      </div>
-      <img
-        src="/ielts-onboarding/style-selector.png"
-        alt="IELTS onboarding — pick mode, color theme, and pixel cat"
-        loading="lazy"
-        className="block h-auto w-full"
-      />
-    </div>
+    <ScreensCarousel
+      items={onboardingSteps.map((s) => (
+        <img
+          key={s.src}
+          src={s.src}
+          alt={s.alt}
+          loading="lazy"
+          className="h-full w-full object-cover"
+        />
+      ))}
+    />
   )
 }
 

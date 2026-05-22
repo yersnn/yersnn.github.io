@@ -14,6 +14,7 @@ import {
   CountUp,
   DecodeText,
 } from '@/components/ui/cyber-fx'
+import { EntryTicket } from '@/components/ui/entry-ticket'
 
 const projects = [
   {
@@ -81,6 +82,16 @@ export function HomePage() {
         <div className="scanlines-drift pointer-events-none absolute inset-0 mix-blend-overlay opacity-40" />
 
         <div className="relative mx-auto max-w-[1600px] px-12">
+          <EntryTicket
+            className="right-12 top-32 xl:right-24"
+            topLeft="ACCESS"
+            topRight="PASS"
+            eventBoldLeft="yer"
+            eventLight="snn"
+            eventSub="DESIGNER 2026"
+            number="#001"
+          />
+
           <div className="mb-6 flex flex-wrap items-center gap-3">
             <HUDLabel id="000">Portfolio</HUDLabel>
             <StatusBadge tone="lime" variant="solid">
@@ -90,7 +101,7 @@ export function HomePage() {
               v2.6.1
             </StatusBadge>
           </div>
-          <h1 className="text-5xl font-bold leading-[0.95] tracking-tight md:text-7xl xl:text-8xl">
+          <h1 className="max-w-[10ch] text-5xl font-bold leading-[0.95] tracking-tight md:text-7xl xl:text-8xl">
             <GlitchText>Yersultan Zhumalin</GlitchText>
           </h1>
           <p className="mt-6 max-w-3xl text-lg leading-relaxed text-foreground md:text-2xl md:leading-snug">
