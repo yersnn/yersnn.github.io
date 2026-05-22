@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { GradientWave } from '@/components/ui/gradient-wave'
 import { HUDLabel } from '@/components/ui/hud-label'
 import { HazardDivider } from '@/components/ui/hazard-divider'
 import { StatRadar } from '@/components/ui/stat-radar'
@@ -63,19 +62,7 @@ export function HomePage() {
   return (
     <div className="relative">
       {/* ─── Hero ──────────────────────────────────────────────────── */}
-      <header className="relative overflow-hidden pt-40 pb-32">
-        <GradientWave
-          className="absolute inset-0"
-          colors={[
-            '#000000',
-            '#404040',
-            '#ffffff',
-            '#a0a0a0',
-            '#000000',
-            '#ffffff',
-          ]}
-        />
-        <div className="scanlines pointer-events-none absolute inset-0" />
+      <header className="relative bg-background pt-40 pb-32">
         <div className="relative mx-auto max-w-[1600px] px-12">
           <HUDLabel id="000" className="mb-6">
             Portfolio

@@ -62,14 +62,14 @@ export function ThemeShowcase() {
             }}
           >
             <div
-              className="cursor-target group relative h-full w-full"
+              className="group relative h-full w-full"
               onMouseEnter={() => setHoveredId(i)}
               onMouseLeave={() =>
                 setHoveredId((cur) => (cur === i ? null : cur))
               }
             >
               <div
-                className="relative h-full w-full overflow-hidden rounded-xl border border-white/15 shadow-xl ring-1 ring-black/40 transition-transform duration-300 group-hover:scale-[4] group-hover:z-50 group-hover:border-white/60"
+                className="cursor-target relative h-full w-full overflow-hidden rounded-xl border border-white/15 shadow-xl ring-1 ring-black/40 transition-transform duration-300 group-hover:scale-[3] group-hover:z-50 group-hover:border-white/60"
                 style={{ willChange: 'transform' }}
               >
                 <img
