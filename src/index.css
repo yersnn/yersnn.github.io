@@ -1,6 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Orbitron:wght@500;600;700;800;900&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Rajdhani:wght@400;500;600;700&display=swap');
 
 @theme inline {
   --color-background: var(--background);
@@ -132,9 +132,11 @@
   --cyber-danger: #ff453a;
   --cyber-glow-lime: 0 0 18px rgba(203, 238, 76, 0.35);
   --cyber-glow-cyan: 0 0 18px rgba(94, 234, 212, 0.4);
-  --font-mono: 'DM Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --font-display:
-    'Rajdhani', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    'Orbitron', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-body:
+    'Chakra Petch', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 
 /* Angular clipped-corner panel — top-right + bottom-left chamfered */
@@ -393,6 +395,99 @@
   animation: arcane-drift 7s ease-in-out infinite;
 }
 
+/* ─── Intro sequence — ticket prints, then everything glitches in ── */
+.intro-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes glitch-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+    clip-path: inset(0 100% 0 0);
+    filter: hue-rotate(30deg) brightness(1.4) saturate(1.4);
+  }
+  18% {
+    opacity: 0.7;
+    transform: translate(-3px, 4px);
+    clip-path: inset(0 35% 0 0);
+    filter: hue-rotate(40deg) brightness(1.5);
+  }
+  32% {
+    opacity: 1;
+    transform: translate(4px, 0);
+    clip-path: inset(15% 0 55% 25%);
+    filter: hue-rotate(-30deg) brightness(0.9);
+  }
+  46% {
+    transform: translate(-2px, 0);
+    clip-path: inset(45% 0 25% 10%);
+    filter: hue-rotate(25deg) brightness(1.2);
+  }
+  60% {
+    transform: translate(1px, 0);
+    clip-path: inset(0);
+    filter: hue-rotate(12deg);
+  }
+  80% {
+    transform: translate(0, 1px);
+    filter: hue-rotate(4deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+    clip-path: inset(0);
+    filter: none;
+  }
+}
+
+.intro-reveal {
+  animation: glitch-reveal 0.9s cubic-bezier(0.6, 0, 0.2, 1) both;
+}
+.intro-reveal-d1 {
+  animation-delay: 0.08s;
+}
+.intro-reveal-d2 {
+  animation-delay: 0.18s;
+}
+.intro-reveal-d3 {
+  animation-delay: 0.3s;
+}
+.intro-reveal-d4 {
+  animation-delay: 0.42s;
+}
+
+/* Ticket transform during curtain — applied via JS-measured offset.
+   Transition fires only when leaving curtain (so the initial "appear at center"
+   is instantaneous). */
+.entry-ticket-root.intro-curtain {
+  /* Top-anchored scale so the measured rect.top matches the rendered top. */
+  transform-origin: 50% 0%;
+  transform: translate(var(--intro-tx, 0), var(--intro-ty, 0)) scale(1.18);
+  transition: none;
+}
+.entry-ticket-root.intro-flying {
+  transform: none;
+  transition: transform 1s cubic-bezier(0.65, 0, 0.2, 1);
+}
+
+/* Hide global chrome (nav + cursor) while curtain is up — set on <html>. */
+html.intro-curtain-active .cyber-nav,
+html.intro-curtain-active .target-cursor-wrapper {
+  opacity: 0;
+  pointer-events: none;
+}
+/* When transitioning out, glitch-reveal them too. */
+html.intro-flying-active .cyber-nav {
+  animation: glitch-reveal 0.9s cubic-bezier(0.6, 0, 0.2, 1) both;
+  animation-delay: 0.25s;
+}
+html.intro-flying-active .target-cursor-wrapper {
+  animation: glitch-reveal 0.7s cubic-bezier(0.6, 0, 0.2, 1) both;
+  animation-delay: 0.4s;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -401,9 +496,9 @@ body {
   margin: 0;
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-weight: 400;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.005em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -413,6 +508,11 @@ h2,
 h3,
 h4 {
   font-family: var(--font-display);
-  font-weight: 600;
-  letter-spacing: -0.01em;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+}
+
+/* Display titles (Orbitron) get slightly more weight + tracking for posture */
+h1 {
+  letter-spacing: -0.015em;
 }

@@ -1,6 +1,7 @@
 import { ProjectMeta } from '@/components/ui/project-meta'
 import { NextProject } from '@/components/ui/next-project'
 import { HUDLabel } from '@/components/ui/hud-label'
+import { ContainerScroll } from '@/components/ui/container-scroll-animation'
 
 const screens = [
   '/alims/screen-1.png',
@@ -40,43 +41,48 @@ export function AlimsPage() {
 
         <ProjectMeta items={meta} />
 
-        <div className="mt-16 grid grid-cols-1 items-start gap-12 md:mt-20 md:grid-cols-12 md:gap-16">
-          <div className="md:col-span-7">
-            <HUDLabel id="A">The pitch</HUDLabel>
-            <p className="mt-4 text-lg leading-relaxed text-foreground/80 md:text-2xl md:leading-relaxed">
-              A mobile companion for students preparing for{' '}
-              <span className="font-semibold text-[#CBEE4C]">IELTS</span>,{' '}
-              <span className="font-semibold text-[#CBEE4C]">SAT</span>, and
-              more — built around a clean dark interface, courses in progress
-              at a glance, and the same{' '}
-              <span className="font-semibold text-[#CBEE4C]">ELO</span> system
-              that powers the desktop platform.
-            </p>
-          </div>
-
-          <div className="relative md:col-span-5">
-            <div
-              className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[110%] w-[80%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#CBEE4C]/10 blur-3xl"
-              aria-hidden="true"
-            />
-            <div className="mx-auto max-w-[280px]">
-              <img
-                src={screens[0]}
-                alt="Courses — featured screen"
-                loading="eager"
-                className="block w-full"
-              />
-            </div>
-            <div className="mx-auto mt-6 max-w-[280px] text-center">
-              <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                Featured
-              </div>
-              <div className="mt-1.5 text-sm font-medium md:text-base">
-                Courses dashboard
-              </div>
+        <div className="mt-16 md:mt-20">
+          <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-16">
+            <div className="md:col-span-7">
+              <HUDLabel id="A">The pitch</HUDLabel>
+              <p className="mt-4 text-lg leading-relaxed text-foreground/80 md:text-2xl md:leading-relaxed">
+                A mobile companion for students preparing for{' '}
+                <span className="font-semibold text-[#CBEE4C]">IELTS</span>,{' '}
+                <span className="font-semibold text-[#CBEE4C]">SAT</span>, and
+                more — built around a clean dark interface, courses in progress
+                at a glance, and the same{' '}
+                <span className="font-semibold text-[#CBEE4C]">ELO</span>{' '}
+                system that powers the desktop platform.
+              </p>
             </div>
           </div>
         </div>
+      </div>
+
+      {/* ContainerScroll hero — Featured Courses dashboard tilts into view */}
+      <ContainerScroll
+        titleComponent={
+          <div className="mb-4">
+            <div className="font-hud text-xs uppercase tracking-[0.3em] text-[#CBEE4C]">
+              ▸ FEATURED
+            </div>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
+              Courses dashboard
+            </h2>
+          </div>
+        }
+      >
+        <div className="flex h-full w-full items-center justify-center bg-gradient-to-b from-[#0a0a0c] to-[#13131a] p-6">
+          <img
+            src={screens[0]}
+            alt="Courses — featured screen"
+            loading="eager"
+            className="block max-h-full w-auto object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.6)]"
+          />
+        </div>
+      </ContainerScroll>
+
+      <div className="mx-auto max-w-[1600px] px-12">
 
         <div className="mt-24 mb-12 grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-12">
           <div className="md:col-span-5">

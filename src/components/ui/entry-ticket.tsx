@@ -1,3 +1,4 @@
+import { forwardRef } from 'react'
 import './entry-ticket.css'
 
 /**
@@ -61,18 +62,22 @@ interface EntryTicketProps {
   number?: string
 }
 
-export function EntryTicket({
-  className = '',
-  topLeft = 'ACCESS',
-  topRight = 'PASS',
-  eventBoldLeft = 'yer',
-  eventLight = 'snn',
-  eventSub = 'DESIGNER 2026',
-  number = '#001',
-}: EntryTicketProps) {
-  return (
-    <div className={`entry-ticket-root ${className}`}>
-      <div className="ticket-drop">
+export const EntryTicket = forwardRef<HTMLDivElement, EntryTicketProps>(
+  function EntryTicket(
+    {
+      className = '',
+      topLeft = 'ACCESS',
+      topRight = 'PASS',
+      eventBoldLeft = 'yer',
+      eventLight = 'snn',
+      eventSub = 'DESIGNER 2026',
+      number = '#001',
+    },
+    ref,
+  ) {
+    return (
+      <div ref={ref} className={`entry-ticket-root ${className}`}>
+        <div className="ticket-drop">
         <div className="ticket-float">
           <div className="ticket-body">
             <div className="reflex"></div>
@@ -185,4 +190,5 @@ export function EntryTicket({
       </div>
     </div>
   )
-}
+  },
+)

@@ -1,20 +1,20 @@
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { HUDLabel } from '@/components/ui/hud-label'
 import { HazardDivider } from '@/components/ui/hazard-divider'
-import { StatRadar } from '@/components/ui/stat-radar'
 import {
   BracketCorners,
   StatusBadge,
   ChevronCta,
-  CyberPanel,
 } from '@/components/ui/cyber'
 import {
   GlitchText,
   StatusTicker,
-  CountUp,
   DecodeText,
 } from '@/components/ui/cyber-fx'
 import { EntryTicket } from '@/components/ui/entry-ticket'
+import HeroAsciiOne from '@/components/ui/hero-ascii-one'
+import { cn } from '@/lib/utils'
 
 const projects = [
   {
@@ -44,37 +44,87 @@ const projects = [
   },
 ]
 
-const stats = [
-  { label: 'CREATIVITY', value: 9 },
-  { label: 'SPEED', value: 8 },
-  { label: 'POLISH', value: 9 },
-  { label: 'RANGE', value: 8 },
-  { label: 'ITERATION', value: 9 },
-  { label: 'SHIPPING', value: 8 },
-]
+type IntroState = 'curtain' | 'flying' | 'idle'
 
-const contacts = [
-  {
-    label: 'Email',
-    value: 'ersuxa228@gmail.com',
-    href: 'mailto:ersuxa228@gmail.com',
-    code: 'EML',
-  },
-  {
-    label: 'Telegram',
-    value: '@bzbzzzk',
-    href: 'https://t.me/bzbzzzk',
-    code: 'TG',
-  },
-  {
-    label: 'GitHub',
-    value: 'github.com/yersnn',
-    href: 'https://github.com/yersnn',
-    code: 'GIT',
-  },
-]
+/**
+ * Intro sequence:
+ * 1. On first visit only (sessionStorage gate), ticket is the sole visible
+ *    element, positioned dead-centered at the top of the viewport. The
+ *    existing ticket-drop CSS animation makes it "print" in from above.
+ * 2. After ~1.7s (drop done), we set state→'flying': ticket transitions back
+ *    to its natural right-of-name spot, and all other content glitch-reveals
+ *    in with staggered delays.
+ * 3. After the transitions finish, state→'idle' cleans up CSS classes.
+ */
+function useIntroSequence(ticketRef: React.RefObject<HTMLDivElement | null>) {
+  const [state, setState] = useState<IntroState>(() => {
+    if (typeof window === 'undefined') return 'idle'
+    // Respect reduced-motion + treat repeat visits as already-seen
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches)
+      return 'idle'
+    if (sessionStorage.getItem('intro-shown') === '1') return 'idle'
+    return 'curtain'
+  })
+
+  // Measure natural position once we're in curtain and assign CSS vars so
+  // the ticket renders at viewport-center instantly.
+  useLayoutEffect(() => {
+    if (state !== 'curtain' || !ticketRef.current) return
+    const el = ticketRef.current
+    const rect = el.getBoundingClientRect()
+    // We want the ticket centered horizontally at top:24
+    const tx = window.innerWidth / 2 - (rect.left + rect.width / 2)
+    const ty = 24 - rect.top
+    el.style.setProperty('--intro-tx', `${tx}px`)
+    el.style.setProperty('--intro-ty', `${ty}px`)
+  }, [state, ticketRef])
+
+  // Toggle body classes so the global CyberNav + TargetCursor can hide/reveal
+  // along with the page content.
+  useEffect(() => {
+    const root = document.documentElement
+    root.classList.toggle('intro-curtain-active', state === 'curtain')
+    root.classList.toggle('intro-flying-active', state === 'flying')
+    return () => {
+      root.classList.remove('intro-curtain-active', 'intro-flying-active')
+    }
+  }, [state])
+
+  // Curtain → Flying (ticket prints done, time to reveal everything)
+  useEffect(() => {
+    if (state !== 'curtain') return
+    const t = setTimeout(() => setState('flying'), 1700)
+    return () => clearTimeout(t)
+  }, [state])
+
+  // Flying → Idle (transitions done, mark as seen)
+  useEffect(() => {
+    if (state !== 'flying') return
+    const t = setTimeout(() => {
+      setState('idle')
+      try {
+        sessionStorage.setItem('intro-shown', '1')
+      } catch {
+        // sessionStorage may be unavailable (e.g. private mode); ignore.
+      }
+    }, 1400)
+    return () => clearTimeout(t)
+  }, [state])
+
+  return state
+}
 
 export function HomePage() {
+  const ticketRef = useRef<HTMLDivElement>(null)
+  const intro = useIntroSequence(ticketRef)
+
+  // Content is hidden during curtain, reveals during flying, idle = normal
+  const hidden = intro === 'curtain'
+  const revealing = intro === 'flying'
+
+  const ticketIntroClass =
+    intro === 'curtain' ? 'intro-curtain' : intro === 'flying' ? 'intro-flying' : ''
+
   return (
     <div className="relative cyber-grid-fine">
       {/* ─── Hero ──────────────────────────────────────────────────── */}
@@ -83,7 +133,11 @@ export function HomePage() {
 
         <div className="relative mx-auto max-w-[1600px] px-12">
           <EntryTicket
-            className="right-12 top-32 xl:right-24"
+            ref={ticketRef}
+            className={cn(
+              'right-12 top-32 xl:right-24',
+              ticketIntroClass,
+            )}
             topLeft="ACCESS"
             topRight="PASS"
             eventBoldLeft="yer"
@@ -92,50 +146,69 @@ export function HomePage() {
             number="#001"
           />
 
-          <div className="mb-6 flex flex-wrap items-center gap-3">
-            <HUDLabel id="000">Portfolio</HUDLabel>
-            <StatusBadge tone="lime" variant="solid">
-              ONLINE
-            </StatusBadge>
-            <StatusBadge tone="cyan" variant="outline">
-              v2.6.1
-            </StatusBadge>
+          <div
+            className={cn(
+              hidden && 'intro-hidden',
+              revealing && 'intro-reveal',
+            )}
+          >
+            <div className="mb-6 flex flex-wrap items-center gap-3">
+              <HUDLabel id="000">Portfolio</HUDLabel>
+              <StatusBadge tone="lime" variant="solid">
+                ONLINE
+              </StatusBadge>
+              <StatusBadge tone="cyan" variant="outline">
+                v2.6.1
+              </StatusBadge>
+            </div>
+            <h1 className="max-w-[10ch] text-5xl font-bold leading-[0.95] tracking-tight md:text-7xl xl:text-8xl">
+              <GlitchText>Yersultan Zhumalin</GlitchText>
+            </h1>
+            <p className="mt-6 max-w-3xl text-lg leading-relaxed text-foreground md:text-2xl md:leading-snug">
+              UI/UX designer based in Astana, Kazakhstan. I design thoughtful
+              interfaces — from{' '}
+              <span className="font-semibold text-[#CBEE4C] cyber-glow">
+                gamified IELTS prep
+              </span>{' '}
+              to{' '}
+              <span className="font-semibold text-[#CBEE4C] cyber-glow">
+                school platforms
+              </span>{' '}
+              and mobile companion apps.
+            </p>
           </div>
-          <h1 className="max-w-[10ch] text-5xl font-bold leading-[0.95] tracking-tight md:text-7xl xl:text-8xl">
-            <GlitchText>Yersultan Zhumalin</GlitchText>
-          </h1>
-          <p className="mt-6 max-w-3xl text-lg leading-relaxed text-foreground md:text-2xl md:leading-snug">
-            UI/UX designer based in Astana, Kazakhstan. I design thoughtful
-            interfaces — from{' '}
-            <span className="font-semibold text-[#CBEE4C] cyber-glow">
-              gamified IELTS prep
-            </span>{' '}
-            to{' '}
-            <span className="font-semibold text-[#CBEE4C] cyber-glow">
-              school platforms
-            </span>{' '}
-            and mobile companion apps.
-          </p>
         </div>
       </header>
 
       {/* Status ticker bar (cyberpunk dashboard staple) */}
-      <StatusTicker
-        items={[
-          'SYSTEM ONLINE',
-          'DOSSIER LOADED · 003 ACTIVE',
-          'SIGNAL: STRONG',
-          'PROTOCOL // 002',
-          'NIGHT CITY · 2026',
-          'CAPABILITY RADAR · v0.6.2',
-          'UPLINK READY',
-          'NO BIOLOGICAL DATA WAS FOUND',
-        ]}
-        speed="slow"
-      />
+      <div
+        className={cn(
+          hidden && 'intro-hidden',
+          revealing && 'intro-reveal intro-reveal-d1',
+        )}
+      >
+        <StatusTicker
+          items={[
+            'SYSTEM ONLINE',
+            'DOSSIER LOADED · 003 ACTIVE',
+            'SIGNAL: STRONG',
+            'PROTOCOL // 002',
+            'NIGHT CITY · 2026',
+            'UPLINK READY',
+            'NO BIOLOGICAL DATA WAS FOUND',
+          ]}
+          speed="slow"
+        />
+      </div>
 
       {/* ─── Selected work ─────────────────────────────────────────── */}
-      <div className="relative bg-background">
+      <div
+        className={cn(
+          'relative bg-background',
+          hidden && 'intro-hidden',
+          revealing && 'intro-reveal intro-reveal-d2',
+        )}
+      >
         <div className="mx-auto max-w-[1600px] px-12 pt-24">
           <div className="mb-12 grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-12">
             <div className="md:col-span-5">
@@ -161,9 +234,7 @@ export function HomePage() {
                 <div className="relative border border-border bg-card transition-colors group-hover:border-[#CBEE4C]/60">
                   <div className="font-hud flex items-center justify-between border-b border-border bg-card/80 px-5 py-2.5 text-[10px] uppercase tracking-[0.3em]">
                     <span className="text-[#CBEE4C]">▸ {p.code}</span>
-                    <span className="text-muted-foreground">
-                      {p.status}
-                    </span>
+                    <span className="text-muted-foreground">{p.status}</span>
                   </div>
                   <div className="flex h-full flex-col justify-between gap-12 p-8 md:p-10">
                     <div>
@@ -184,76 +255,6 @@ export function HomePage() {
                 </div>
               </Link>
             ))}
-          </div>
-        </div>
-
-        {/* ─── Why me / Attributes ───────────────────────────────── */}
-        <div className="mx-auto mt-32 max-w-[1600px] px-12">
-          <HazardDivider label="ATTRIBUTES" className="mb-12" />
-
-          <div className="mb-12 grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-12">
-            <div className="md:col-span-5">
-              <HUDLabel id="002">Why me</HUDLabel>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
-                <DecodeText text="What happens when you hire me" />
-              </h2>
-            </div>
-            <p className="text-base leading-relaxed text-muted-foreground md:col-span-7 md:text-lg md:leading-relaxed">
-              I move fast, ship polished, and bring real range — gamified UI,
-              editorial layouts, cyberpunk frames, mobile companions. Six
-              attributes I get judged on, scored out of 10.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-12">
-            {/* Stat list */}
-            <div className="md:col-span-5">
-              <CyberPanel
-                label="PROFILE"
-                code="PROTOCOL // 002"
-                bracketColor="#CBEE4C"
-                hazardStrip
-              >
-                <ul className="space-y-3 p-6 md:p-8">
-                  {stats.map((s) => (
-                    <li
-                      key={s.label}
-                      className="font-hud flex items-baseline justify-between gap-4 border-b border-border/60 pb-3 text-sm last:border-0 last:pb-0"
-                    >
-                      <span className="tracking-[0.15em] text-muted-foreground">
-                        {s.label}
-                      </span>
-                      <span className="flex items-baseline gap-3">
-                        <span className="text-2xl font-semibold text-[#CBEE4C] cyber-glow md:text-3xl">
-                          <CountUp value={s.value} />
-                        </span>
-                        <span className="text-xs text-muted-foreground/70">
-                          /10
-                        </span>
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="font-hud border-t border-border bg-card/40 px-6 py-3 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-                  ▸ NO BIOLOGICAL DATA WAS FOUND
-                </div>
-              </CyberPanel>
-            </div>
-
-            {/* Radar */}
-            <div className="md:col-span-7">
-              <CyberPanel
-                label="CAPABILITY RADAR"
-                code="v0.6.2"
-                bracketColor="#5EEAD4"
-              >
-                <div className="p-6 md:p-10">
-                  <div className="mx-auto aspect-square w-full max-w-[440px]">
-                    <StatRadar stats={stats} />
-                  </div>
-                </div>
-              </CyberPanel>
-            </div>
           </div>
         </div>
 
@@ -278,50 +279,19 @@ export function HomePage() {
           </div>
         </div>
 
-        {/* ─── Contact ──────────────────────────────────────────── */}
-        <div className="mx-auto mt-32 max-w-[1600px] px-12 pb-32">
-          <HazardDivider label="UPLINK" className="mb-12" />
-          <div className="mb-12 grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-12">
-            <div className="md:col-span-5">
-              <HUDLabel id="004">Contact</HUDLabel>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
-                Let's talk
-              </h2>
-            </div>
-            <p className="text-base leading-relaxed text-muted-foreground md:col-span-7 md:text-lg md:leading-relaxed">
-              Open to collaborations, freelance, and full-time. The fastest
-              way to reach me is below.
-            </p>
-          </div>
+        {/* (Contact CTA is rendered as <HeroAsciiOne /> below — the
+            UnicornStudio hero at the very bottom uses the contacts as text.) */}
+        <div className="pb-12" />
+      </div>
 
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-            {contacts.map((c) => (
-              <a
-                key={c.label}
-                href={c.href}
-                target={c.href.startsWith('http') ? '_blank' : undefined}
-                rel={c.href.startsWith('http') ? 'noreferrer' : undefined}
-                className="cursor-target group relative block"
-              >
-                <BracketCorners />
-                <div className="relative border border-border bg-card transition-colors group-hover:border-[#CBEE4C]/60">
-                  <div className="font-hud flex items-center justify-between border-b border-border bg-card/80 px-4 py-2 text-[10px] uppercase tracking-[0.3em]">
-                    <span className="text-[#CBEE4C]">▸ [{c.code}]</span>
-                    <span className="text-muted-foreground">{c.label}</span>
-                  </div>
-                  <div className="p-6">
-                    <div className="text-base font-medium transition-colors group-hover:text-[#CBEE4C] md:text-lg">
-                      {c.value}
-                    </div>
-                    <div className="mt-4">
-                      <ChevronCta>Open uplink</ChevronCta>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
+      {/* ─── Closing CTA: ENDLESS UPLINK ─────────────────────────── */}
+      <div
+        className={cn(
+          hidden && 'intro-hidden',
+          revealing && 'intro-reveal intro-reveal-d2',
+        )}
+      >
+        <HeroAsciiOne />
       </div>
     </div>
   )
