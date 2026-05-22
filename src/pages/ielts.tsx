@@ -78,19 +78,17 @@ function Section({
 
 function StyleOnboarding() {
   return (
-    <div className="mx-auto max-w-[1600px] px-12">
-      <div className="relative clip-cyber border border-border bg-card/40 p-6 md:p-10">
-        <div className="font-hud mb-6 flex items-center justify-between text-[10px] uppercase tracking-[0.3em] text-[#CBEE4C]">
-          <span>▸ ONBOARDING // 3 STEPS</span>
-          <span className="text-muted-foreground">MODE · COLOR · CAT</span>
-        </div>
-        <img
-          src="/ielts-onboarding/style-selector.png"
-          alt="IELTS onboarding — pick mode, color theme, and pixel cat"
-          loading="lazy"
-          className="block h-auto w-full"
-        />
+    <div className="w-full">
+      <div className="font-hud mx-auto mb-4 flex max-w-[1600px] items-center justify-between px-12 text-[10px] uppercase tracking-[0.3em] text-[#CBEE4C]">
+        <span>▸ ONBOARDING // 3 STEPS</span>
+        <span className="text-muted-foreground">MODE · COLOR · CAT</span>
       </div>
+      <img
+        src="/ielts-onboarding/style-selector.png"
+        alt="IELTS onboarding — pick mode, color theme, and pixel cat"
+        loading="lazy"
+        className="block h-auto w-full"
+      />
     </div>
   )
 }

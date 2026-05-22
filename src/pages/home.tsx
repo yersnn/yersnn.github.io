@@ -10,7 +10,6 @@ import {
 } from '@/components/ui/cyber'
 import {
   GlitchText,
-  CyberOrnament,
   StatusTicker,
   CountUp,
   DecodeText,
@@ -78,36 +77,59 @@ export function HomePage() {
   return (
     <div className="relative cyber-grid-fine">
       {/* ─── Hero ──────────────────────────────────────────────────── */}
-      <header className="relative overflow-hidden bg-background pt-40 pb-20">
-        {/* Arcane-inspired neon ornament behind the title */}
-        <CyberOrnament className="pointer-events-none absolute inset-x-0 top-24 mx-auto h-[560px] w-full max-w-[1500px] opacity-60" />
-        <div className="scanlines-drift pointer-events-none absolute inset-0 mix-blend-overlay opacity-50" />
+      <header className="relative overflow-hidden bg-background pt-32 pb-12">
+        <div className="scanlines-drift pointer-events-none absolute inset-0 mix-blend-overlay opacity-40" />
 
-        <div className="relative mx-auto max-w-[1600px] px-12">
-          <div className="mb-6 flex items-center gap-4">
-            <HUDLabel id="000">Portfolio</HUDLabel>
-            <StatusBadge tone="lime" variant="solid">
-              ONLINE
-            </StatusBadge>
-            <StatusBadge tone="cyan" variant="outline">
-              v2.6.1
-            </StatusBadge>
+        <div className="relative mx-auto max-w-[1500px] px-6">
+          {/* Arcane card frame — image with mix-blend-mode drops the dark
+              card bg, leaving only the painterly neon ornaments. Two layers:
+              the glitch one (clipped slice corruption) and a steady drift one
+              for ambient neon shimmer. */}
+          <div className="relative aspect-[560/685] w-full">
+            <img
+              src="/cyber/arcane-frame.png"
+              alt=""
+              aria-hidden="true"
+              className="arcane-drift pointer-events-none absolute inset-0 h-full w-full"
+              style={{ mixBlendMode: 'lighten' }}
+            />
+            <img
+              src="/cyber/arcane-frame.png"
+              alt=""
+              aria-hidden="true"
+              className="arcane-glitch pointer-events-none absolute inset-0 h-full w-full opacity-90"
+              style={{ mixBlendMode: 'lighten' }}
+            />
+
+            {/* Content placed in the open interior of the frame */}
+            <div className="absolute inset-[18%_10%_12%_10%] flex flex-col justify-center">
+              <div className="mb-6 flex flex-wrap items-center gap-3">
+                <HUDLabel id="000">Portfolio</HUDLabel>
+                <StatusBadge tone="lime" variant="solid">
+                  ONLINE
+                </StatusBadge>
+                <StatusBadge tone="cyan" variant="outline">
+                  v2.6.1
+                </StatusBadge>
+              </div>
+              <h1 className="text-4xl font-bold leading-none tracking-tight md:text-6xl lg:text-7xl">
+                <GlitchText>Yersultan</GlitchText>
+                <br />
+                <GlitchText>Zhumalin</GlitchText>
+              </h1>
+              <p className="mt-6 max-w-xl text-base leading-relaxed text-foreground md:text-xl md:leading-snug">
+                UI/UX designer based in Astana, Kazakhstan. From{' '}
+                <span className="font-semibold text-[#CBEE4C] cyber-glow">
+                  gamified IELTS prep
+                </span>{' '}
+                to{' '}
+                <span className="font-semibold text-[#CBEE4C] cyber-glow">
+                  school platforms
+                </span>{' '}
+                and mobile companion apps.
+              </p>
+            </div>
           </div>
-          <h1 className="text-5xl font-semibold tracking-tight md:text-8xl">
-            <GlitchText>Yersultan Zhumalin</GlitchText>
-          </h1>
-          <p className="mt-6 max-w-3xl text-lg leading-relaxed text-foreground md:text-3xl md:leading-snug">
-            UI/UX designer based in Astana, Kazakhstan. I design thoughtful
-            interfaces — from{' '}
-            <span className="font-semibold text-[#CBEE4C] cyber-glow">
-              gamified IELTS prep
-            </span>{' '}
-            to{' '}
-            <span className="font-semibold text-[#CBEE4C] cyber-glow">
-              school platforms
-            </span>{' '}
-            and mobile companion apps.
-          </p>
         </div>
       </header>
 
