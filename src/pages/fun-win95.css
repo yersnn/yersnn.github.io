@@ -12,8 +12,8 @@
  *            inset -4px -4px 0 #b1b1b1;
  */
 
-/* Self-hosted Win95 pixel font (free webfont via cdnfonts). */
-@import url('https://fonts.cdnfonts.com/css/w95fa');
+/* VT323 (Google Fonts) replaces the original W95FA — same retro vibe, far more
+   reliable CDN than cdnfonts. Loaded from the main index.css @import. */
 
 :root {
   --w95-chrome: #c3c3c3;
@@ -27,7 +27,7 @@
   --w95-bezel-1: #d3ccba;
   --w95-bezel-2: #c9c3ad;
   --w95-bezel-inner: #918878;
-  --w95-font: 'W95FA', 'VT323', 'Courier New', monospace;
+  --w95-font: 'VT323', 'Courier New', monospace;
 }
 
 /* ─── Page shell ──────────────────────────────────────────────────────── */
@@ -67,9 +67,9 @@
 .win95-monitor {
   position: relative;
   width: min(94vw, 1280px);
-  display: grid;
-  grid-template-rows: auto auto auto;
-  justify-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.5));
 }
 
@@ -90,7 +90,10 @@
 .win95-monitor__inner-plate {
   position: relative;
   width: 100%;
+  /* Primary: modern aspect-ratio. Fallback: viewport-anchored min-height
+     so the plate never collapses on browsers without aspect-ratio support. */
   aspect-ratio: 1308 / 993;
+  min-height: 50vh;
   background: var(--w95-bezel-inner);
   border-radius: 10px;
   padding: clamp(20px, 2.5vw, 38px);
@@ -104,11 +107,7 @@
 .win95-monitor__neck {
   width: 62%;
   height: clamp(14px, 1.5vw, 22px);
-  background: linear-gradient(
-    180deg,
-    var(--w95-bezel-2),
-    color-mix(in srgb, var(--w95-bezel-2) 80%, black)
-  );
+  background: linear-gradient(180deg, var(--w95-bezel-2), #a89e8b);
   border-radius: 0 0 14px 14px;
   margin-top: -8px;
   box-shadow:
@@ -143,11 +142,7 @@
 .win95-monitor__base {
   width: 80%;
   height: clamp(6px, 0.8vw, 12px);
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--w95-bezel-2) 80%, black),
-    color-mix(in srgb, var(--w95-bezel-2) 55%, black)
-  );
+  background: linear-gradient(180deg, #a89e8b, #6f6857);
   border-radius: 0 0 14px 14px;
 }
 
@@ -538,71 +533,34 @@
   pointer-events: none;
 }
 
-/* ─── Boot curtain (CRT power-on) ─────────────────────────────────────── */
-.win95-boot {
+/* ─── Power-on flash — 250ms non-blocking ──────────────────────────────
+   Pure CSS, no JS state needed. Desktop is visible the whole time; the
+   flash just plays once on top and fades out. */
+.win95-power-flash {
   position: absolute;
   inset: 0;
-  z-index: 100;
+  z-index: 90;
   pointer-events: none;
-  background: #000;
-  overflow: hidden;
-}
-
-.win95-boot__flash {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(
-      ellipse at center,
-      rgba(255, 255, 255, 0.85),
-      transparent 70%
-    ),
-    #000;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.9),
+    rgba(255, 255, 255, 0.1) 60%,
+    transparent 75%
+  );
   opacity: 0;
-  animation: win95-boot-flash 1.2s ease-out forwards;
+  animation: win95-power-flash 0.6s ease-out 0.05s both;
 }
 
-.win95-boot__line {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.9);
-  transform: scaleY(0);
-  animation: win95-boot-line 1.2s ease-out forwards;
-}
-
-@keyframes win95-boot-flash {
+@keyframes win95-power-flash {
   0% {
     opacity: 0;
   }
-  35% {
+  20% {
     opacity: 1;
   }
   100% {
     opacity: 0;
   }
-}
-
-@keyframes win95-boot-line {
-  0% {
-    transform: scaleY(0);
-  }
-  15% {
-    transform: scaleY(40);
-  }
-  60% {
-    transform: scaleY(1) scaleX(1);
-  }
-  100% {
-    transform: scaleY(1) scaleX(0);
-    opacity: 0;
-  }
-}
-
-.win95-boot.is-done {
-  display: none;
 }
 
 /* ─── Mobile fallback ─────────────────────────────────────────────────── */

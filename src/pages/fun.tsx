@@ -388,13 +388,6 @@ export function FunPage() {
   const [selected, setSelected] = useState<IconId | null>(null)
   const [dialogOpen, setDialogOpen] = useState(true)
   const [startOpen, setStartOpen] = useState(false)
-  const [booted, setBooted] = useState(false)
-
-  // Boot flash on first paint; afterwards the curtain fades away.
-  useEffect(() => {
-    const t = setTimeout(() => setBooted(true), 1200)
-    return () => clearTimeout(t)
-  }, [])
 
   function openDialog() {
     setDialogOpen(true)
@@ -441,14 +434,8 @@ export function FunPage() {
               {/* CRT glare overlay (non-interactive) */}
               <div className="win95-glare" aria-hidden="true" />
 
-              {/* Boot curtain */}
-              <div
-                className={`win95-boot ${booted ? 'is-done' : ''}`}
-                aria-hidden="true"
-              >
-                <div className="win95-boot__flash" />
-                <div className="win95-boot__line" />
-              </div>
+              {/* Brief power-on flash (200ms, non-blocking) */}
+              <div className="win95-power-flash" aria-hidden="true" />
 
               <StartMenu open={startOpen} onClose={() => setStartOpen(false)} />
 
