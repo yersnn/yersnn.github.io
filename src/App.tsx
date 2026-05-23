@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react'
 import { HashRouter, Routes, Route, useLocation } from 'react-router-dom'
-import { CyberNav } from '@/components/ui/cyber-nav'
+import PillNav from '@/components/ui/pill-nav'
 import TargetCursor from '@/components/ui/target-cursor'
 import { HomePage } from '@/pages/home'
 
@@ -41,7 +41,16 @@ function Layout() {
   return (
     <>
       <TargetCursor targetSelector=".cursor-target" />
-      <CyberNav items={navItems} activeHref={location.pathname} />
+      <PillNav
+        logo="/icon.png"
+        logoAlt="yersnn"
+        items={navItems}
+        activeHref={location.pathname}
+        baseColor="#cbee4c"
+        pillColor="#0a0a0c"
+        hoveredPillTextColor="#0a0a0c"
+        pillTextColor="#cbee4c"
+      />
       <Suspense fallback={<PageFallback />}>
         <Routes>
           <Route path="/" element={<HomePage />} />
