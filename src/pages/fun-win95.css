@@ -571,7 +571,59 @@
   .win95-monitor {
     width: 98vw;
   }
+  /* Tighter icon column so 5 fit comfortably on a narrow screen */
   .win95-desktop-icons {
+    gap: 6px;
+    inset: 6px auto auto 6px;
+  }
+  .win95-desktop-icon {
+    width: 60px;
+    padding: 2px;
+  }
+  .win95-desktop-icon__art {
+    width: 34px;
+    height: 34px;
+  }
+  .win95-desktop-icon__art img {
+    width: 34px !important;
+    height: 34px !important;
+  }
+  .win95-desktop-icon__label {
+    font-size: 11px;
+  }
+  /* Smaller dialog so it doesn't cover the icons */
+  .win95-dialog {
+    width: 70%;
+    top: 40%;
+  }
+  .win95-dialog__body {
+    padding: 12px 12px 4px;
     gap: 8px;
+  }
+  .win95-dialog__text {
+    font-size: 12px;
+  }
+  .win95-dialog__actions {
+    padding: 10px 0;
+  }
+  .win95-btn {
+    font-size: 12px;
+    padding: 4px 12px;
+    min-width: 56px;
+  }
+  /* Taskbar: don't need volume icon on mobile, smaller clock */
+  .win95-taskbar {
+    height: 32px;
+  }
+  .win95-task {
+    min-width: 100px;
+    font-size: 11px;
+    padding: 0 8px;
+  }
+  .win95-tray img {
+    display: none;
+  }
+  .win95-clock-time {
+    font-size: 11px;
   }
 }

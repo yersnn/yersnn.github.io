@@ -400,6 +400,13 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  /* Defensive: prevent any descendant from ever causing horizontal page scroll.
+     Internal scroll containers (carousels, etc.) still scroll their own content. */
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
   background-color: var(--background);
@@ -409,6 +416,14 @@ body {
   letter-spacing: 0.005em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* TargetCursor is a custom desktop cursor. On touch devices it just appears
+   as a static set of brackets in the middle of the screen — hide it. */
+@media (hover: none), (pointer: coarse) {
+  .target-cursor-wrapper {
+    display: none !important;
+  }
 }
 
 h1,
