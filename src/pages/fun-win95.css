@@ -38,7 +38,7 @@
   background: #0a0a0c;
   display: grid;
   place-items: center;
-  padding: 5vh 2vw;
+  padding: 2vh 2vw;
   overflow: hidden;
   font-family: var(--w95-font);
 }
@@ -66,7 +66,10 @@
 /* ─── CRT monitor body ───────────────────────────────────────────────── */
 .win95-monitor {
   position: relative;
-  width: min(94vw, 1280px);
+  /* The monitor's total aspect (bezel + stand) is ~1280/1133 ≈ 1.13.
+     Cap the width by EITHER the viewport width OR the viewport height
+     converted via that ratio, so the whole monitor always fits. */
+  width: min(92vw, 85vh * 1.13, 1180px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -77,9 +80,9 @@
   position: relative;
   width: 100%;
   background: linear-gradient(180deg, var(--w95-bezel-1), var(--w95-bezel-2));
-  border-radius: 18px 18px 26px 26px;
-  padding: clamp(28px, 4vw, 56px) clamp(28px, 3.5vw, 48px)
-    clamp(60px, 7vw, 100px);
+  border-radius: 14px 14px 22px 22px;
+  padding: clamp(18px, 2.6vw, 36px) clamp(18px, 2.4vw, 32px)
+    clamp(36px, 4.5vw, 64px);
   box-shadow:
     inset 0 2px 0 rgba(255, 255, 255, 0.4),
     inset 0 -12px 28px rgba(0, 0, 0, 0.18),
@@ -90,13 +93,10 @@
 .win95-monitor__inner-plate {
   position: relative;
   width: 100%;
-  /* Primary: modern aspect-ratio. Fallback: viewport-anchored min-height
-     so the plate never collapses on browsers without aspect-ratio support. */
   aspect-ratio: 1308 / 993;
-  min-height: 50vh;
   background: var(--w95-bezel-inner);
-  border-radius: 10px;
-  padding: clamp(20px, 2.5vw, 38px);
+  border-radius: 8px;
+  padding: clamp(14px, 1.8vw, 26px);
   box-shadow:
     inset 0 0 0 1px rgba(0, 0, 0, 0.35),
     inset 0 4px 18px rgba(0, 0, 0, 0.45),
@@ -106,10 +106,10 @@
 /* ─── Stand + base ────────────────────────────────────────────────────── */
 .win95-monitor__neck {
   width: 62%;
-  height: clamp(14px, 1.5vw, 22px);
+  height: clamp(10px, 1.1vw, 16px);
   background: linear-gradient(180deg, var(--w95-bezel-2), #a89e8b);
   border-radius: 0 0 14px 14px;
-  margin-top: -8px;
+  margin-top: -6px;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.35),
     inset 0 -4px 8px rgba(0, 0, 0, 0.25);
@@ -117,7 +117,7 @@
 
 .win95-monitor__stand {
   width: 70%;
-  height: clamp(28px, 3vw, 44px);
+  height: clamp(20px, 2.2vw, 32px);
   background: linear-gradient(180deg, var(--w95-bezel-1), var(--w95-bezel-2));
   border-radius: 6px 6px 24px 24px;
   position: relative;
