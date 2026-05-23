@@ -42,7 +42,7 @@ function Layout() {
     <>
       <TargetCursor targetSelector=".cursor-target" />
       <PillNav
-        logo="/icon.png"
+        logo="/dinosaur.svg"
         logoAlt="yersnn"
         items={navItems}
         activeHref={location.pathname}
