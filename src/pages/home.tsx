@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import { HUDLabel } from '@/components/ui/hud-label'
-import { HazardDivider } from '@/components/ui/hazard-divider'
 import {
   BracketCorners,
   StatusBadge,
@@ -62,16 +61,7 @@ export function HomePage() {
             <GlitchText>Yersultan Zhumalin</GlitchText>
           </h1>
           <p className="mt-6 max-w-3xl text-lg leading-relaxed text-foreground md:text-2xl md:leading-snug">
-            UI/UX designer based in Astana, Kazakhstan. I design thoughtful
-            interfaces — from{' '}
-            <span className="font-semibold text-[#CBEE4C] cyber-glow">
-              gamified IELTS prep
-            </span>{' '}
-            to{' '}
-            <span className="font-semibold text-[#CBEE4C] cyber-glow">
-              school platforms
-            </span>{' '}
-            and mobile companion apps.
+            UI/UX designer based in Astana, Kazakhstan.
           </p>
         </div>
       </header>
@@ -138,27 +128,6 @@ export function HomePage() {
                 </div>
               </Link>
             ))}
-          </div>
-        </div>
-
-        {/* ─── About ─────────────────────────────────────────────── */}
-        <div className="mx-auto mt-32 max-w-[1600px] px-12">
-          <HazardDivider label="DOSSIER // BIO" className="mb-12" />
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-12">
-            <div className="md:col-span-5">
-              <HUDLabel id="003">About</HUDLabel>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
-                What I care about
-              </h2>
-            </div>
-            <p className="text-lg leading-relaxed text-foreground/80 md:col-span-7 md:text-2xl md:leading-relaxed">
-              Gamified learning. Distinctive visual languages. The small
-              details — drifting clouds, a pixel companion, a thoughtful
-              transition — that make products feel alive. Currently building
-              the{' '}
-              <span className="font-semibold text-[#CBEE4C]">Alims</span>{' '}
-              test-prep ecosystem.
-            </p>
           </div>
         </div>
 
