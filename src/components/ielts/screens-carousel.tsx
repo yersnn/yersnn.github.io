@@ -76,7 +76,7 @@ export function ScreensCarousel({
         disabled={atStart}
         aria-label="Previous"
         className={cn(
-          'cursor-target absolute left-4 top-1/2 z-20 -translate-y-1/2 rounded-full border border-border bg-background/60 p-3 text-foreground backdrop-blur transition-all hover:border-foreground/60 hover:bg-background/90 disabled:pointer-events-none disabled:opacity-0',
+          'absolute left-4 top-1/2 z-20 -translate-y-1/2 rounded-full border border-border bg-background/60 p-3 text-foreground backdrop-blur transition-all hover:border-foreground/60 hover:bg-background/90 disabled:pointer-events-none disabled:opacity-0',
         )}
       >
         <svg
@@ -99,7 +99,7 @@ export function ScreensCarousel({
         disabled={atEnd}
         aria-label="Next"
         className={cn(
-          'cursor-target absolute right-4 top-1/2 z-20 -translate-y-1/2 rounded-full border border-border bg-background/60 p-3 text-foreground backdrop-blur transition-all hover:border-foreground/60 hover:bg-background/90 disabled:pointer-events-none disabled:opacity-0',
+          'absolute right-4 top-1/2 z-20 -translate-y-1/2 rounded-full border border-border bg-background/60 p-3 text-foreground backdrop-blur transition-all hover:border-foreground/60 hover:bg-background/90 disabled:pointer-events-none disabled:opacity-0',
         )}
       >
         <svg

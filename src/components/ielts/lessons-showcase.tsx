@@ -15,7 +15,7 @@ export function LessonsShowcase() {
           src={l.src}
           alt={l.alt}
           loading="lazy"
-          className="h-full w-full object-cover"
+          className="h-full w-full object-contain"
         />
       ))}
     />

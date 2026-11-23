@@ -33,13 +33,10 @@ export function ThemeShowcase() {
       <div className="relative mx-auto h-[480px] w-full max-w-6xl">
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
           <div className="text-center">
-            <div className="text-xs uppercase tracking-[0.25em] text-muted-foreground">
-              Theme presets
-            </div>
-            <div className="mt-2 text-3xl font-semibold tracking-tight md:text-4xl">
+            <div className="text-3xl font-bold tracking-tight md:text-4xl">
               10 variations
             </div>
-            <div className="mt-3 text-xs text-muted-foreground">
+            <div className="mt-3 text-sm font-medium text-white">
               Hover to pop.
             </div>
           </div>
@@ -50,8 +47,9 @@ export function ThemeShowcase() {
             key={i}
             className="absolute"
             style={{
-              width: '170px',
-              height: '105px',
+              // Same ratio as the 1600×870 screenshots, so nothing is cropped.
+              width: '184px',
+              height: '100px',
               offsetPath: 'ellipse(min(46vw, 540px) 170px at 50% 50%)',
               offsetRotate: '0deg',
               willChange: 'offset-distance',
@@ -69,17 +67,17 @@ export function ThemeShowcase() {
               }
             >
               <div
-                className="cursor-target relative h-full w-full overflow-hidden rounded-xl border border-white/15 shadow-xl ring-1 ring-black/40 transition-transform duration-300 group-hover:scale-[3] group-hover:z-50 group-hover:border-white/60"
+                className="relative h-full w-full overflow-hidden rounded-xl border border-white/15 shadow-xl ring-1 ring-black/40 transition-transform duration-300 group-hover:scale-[3] group-hover:z-50 group-hover:border-white/60"
                 style={{ willChange: 'transform' }}
               >
                 <img
                   src={theme.src}
                   alt={theme.label}
                   loading="lazy"
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-contain"
                 />
               </div>
-              <div className="pointer-events-none absolute -bottom-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-foreground px-3 py-1 text-[11px] font-medium uppercase tracking-wider text-background opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-hover:delay-100">
+              <div className="pointer-events-none absolute -bottom-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-white px-3 py-1 text-[11px] font-semibold text-[#0b0c0e] opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-hover:delay-100">
                 {theme.label}
               </div>
             </div>

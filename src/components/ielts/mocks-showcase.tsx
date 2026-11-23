@@ -16,7 +16,7 @@ export function MocksShowcase() {
           src={m.src}
           alt={m.alt}
           loading="lazy"
-          className="h-full w-full object-cover"
+          className="h-full w-full object-contain"
         />
       ))}
     />

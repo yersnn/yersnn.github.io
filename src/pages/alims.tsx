@@ -1,4 +1,5 @@
 import { ProjectMeta } from '@/components/ui/project-meta'
+import './project.css'
 import { NextProject } from '@/components/ui/next-project'
 import { HUDLabel } from '@/components/ui/hud-label'
 
@@ -26,14 +27,14 @@ const supporting = [
 
 export function AlimsPage() {
   return (
-    <section className="relative w-full bg-background pt-32 pb-32">
-      <div className="mx-auto max-w-[1600px] px-12">
+    <section className="relative w-full project-page pt-24 md:pt-32 pb-32">
+      <div className="mx-auto max-w-[1600px] px-4 md:px-12">
         <div className="mb-12">
           <HUDLabel id="002">Project</HUDLabel>
           <h1 className="mt-3 text-5xl font-semibold tracking-tight md:text-7xl">
             Test Prep App
           </h1>
-          <p className="mt-5 text-lg text-muted-foreground md:text-2xl">
+          <p className="mt-5 text-lg text-white md:text-2xl">
             Mobile companion for IELTS and SAT learners.
           </p>
         </div>
@@ -43,20 +44,20 @@ export function AlimsPage() {
         <div className="mt-16 grid grid-cols-1 items-start gap-12 md:mt-20 md:grid-cols-12 md:gap-16">
           <div className="md:col-span-7">
             <HUDLabel id="A">The pitch</HUDLabel>
-            <p className="mt-4 text-lg leading-relaxed text-foreground/80 md:text-2xl md:leading-relaxed">
+            <p className="mt-4 text-lg leading-relaxed text-white md:text-2xl md:leading-relaxed">
               A mobile companion for students preparing for{' '}
-              <span className="font-semibold text-[#CBEE4C]">IELTS</span>,{' '}
-              <span className="font-semibold text-[#CBEE4C]">SAT</span>, and
+              <span className="font-semibold text-[#4f8dff]">IELTS</span>,{' '}
+              <span className="font-semibold text-[#4f8dff]">SAT</span>, and
               more — built around a clean dark interface, courses in progress
               at a glance, and the same{' '}
-              <span className="font-semibold text-[#CBEE4C]">ELO</span> system
+              <span className="font-semibold text-[#4f8dff]">ELO</span> system
               that powers the desktop platform.
             </p>
           </div>
 
           <div className="relative md:col-span-5">
             <div
-              className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[110%] w-[80%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#CBEE4C]/10 blur-3xl"
+              className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[110%] w-[80%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#4f8dff]/10 blur-3xl"
               aria-hidden="true"
             />
             <div className="mx-auto max-w-[280px]">
@@ -68,7 +69,7 @@ export function AlimsPage() {
               />
             </div>
             <div className="mx-auto mt-6 max-w-[280px] text-center">
-              <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+              <div className="text-xs text-white">
                 Featured
               </div>
               <div className="mt-1.5 text-sm font-medium md:text-base">
@@ -85,7 +86,7 @@ export function AlimsPage() {
               The rest of the app
             </h2>
           </div>
-          <p className="md:col-span-7 text-base leading-relaxed text-muted-foreground md:text-lg md:leading-relaxed">
+          <p className="md:col-span-7 text-base leading-relaxed text-white md:text-lg md:leading-relaxed">
             Each course has its own detail view, an ELO progress dashboard,
             tutor browser, and a profile with achievement widgets.
           </p>
@@ -103,7 +104,7 @@ export function AlimsPage() {
                 loading="lazy"
                 className="block w-full transition-transform duration-300 group-hover:-translate-y-2"
               />
-              <figcaption className="mt-4 text-center text-xs uppercase tracking-widest text-muted-foreground md:text-sm">
+              <figcaption className="mt-4 text-center text-xs text-white md:text-sm">
                 {s.label}
               </figcaption>
             </figure>

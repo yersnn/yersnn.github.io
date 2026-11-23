@@ -1,0 +1,30 @@
+/* Project pages share the homepage look: near-black, white type, Manrope, blue accent.
+   Theme tokens are overridden here so every bg-background / text-muted-foreground
+   inside a project page resolves to the same dark, white-first palette. */
+
+:root:has(.project-page) body {
+  background: #0b0c0e;
+}
+
+.project-page {
+  --background: #0b0c0e;
+  --foreground: #ffffff;
+  --muted-foreground: #ffffff;
+  --border: rgba(255, 255, 255, 0.12);
+  background: #0b0c0e;
+  color: #ffffff;
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+
+.project-page h1,
+.project-page h2,
+.project-page h3 {
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+}
+
+.project-page h1 {
+  letter-spacing: -0.05em;
+}

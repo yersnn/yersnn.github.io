@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react'
+import './project.css'
 import { ProjectMeta } from '@/components/ui/project-meta'
 import { NextProject } from '@/components/ui/next-project'
 import { HUDLabel } from '@/components/ui/hud-label'
-import { HazardDivider } from '@/components/ui/hazard-divider'
 import { SkyShowcase } from '@/components/ielts/sky-showcase'
 import { ThemeShowcase } from '@/components/ielts/theme-showcase'
 import { LessonsShowcase } from '@/components/ielts/lessons-showcase'
@@ -28,7 +28,7 @@ function SectionHeader({
   description: string
 }) {
   return (
-    <div className="mx-auto mb-12 max-w-[1600px] px-12">
+    <div className="mx-auto mb-12 max-w-[1600px] px-4 md:px-12">
       <div className="grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-12">
         <div className="md:col-span-5">
           <HUDLabel id={id}>{eyebrow}</HUDLabel>
@@ -36,7 +36,7 @@ function SectionHeader({
             {title}
           </h2>
         </div>
-        <p className="md:col-span-7 text-base leading-relaxed text-muted-foreground md:text-lg md:leading-relaxed">
+        <p className="md:col-span-7 text-base leading-relaxed text-white md:text-lg md:leading-relaxed">
           {description}
         </p>
       </div>
@@ -49,7 +49,6 @@ function Section({
   id,
   title,
   description,
-  hazard,
   children,
 }: {
   eyebrow: string
@@ -61,11 +60,6 @@ function Section({
 }) {
   return (
     <div>
-      {hazard && (
-        <div className="mx-auto mb-12 max-w-[1600px] px-12">
-          <HazardDivider label={hazard} />
-        </div>
-      )}
       <SectionHeader
         eyebrow={eyebrow}
         id={id}
@@ -101,7 +95,7 @@ function StyleOnboarding() {
           src={s.src}
           alt={s.alt}
           loading="lazy"
-          className="h-full w-full object-cover"
+          className="h-full w-full object-contain"
         />
       ))}
     />
@@ -110,14 +104,14 @@ function StyleOnboarding() {
 
 export function IeltsPage() {
   return (
-    <section className="relative w-full bg-background pt-32 pb-32">
-      <div className="mx-auto max-w-[1600px] px-12">
+    <section className="relative w-full project-page pt-24 md:pt-32 pb-32">
+      <div className="mx-auto max-w-[1600px] px-4 md:px-12">
         <div className="mb-12">
           <HUDLabel id="001">Project</HUDLabel>
           <h1 className="mt-3 text-5xl font-semibold tracking-tight md:text-7xl">
             IELTS Prep
           </h1>
-          <p className="mt-5 text-lg text-muted-foreground md:text-2xl">
+          <p className="mt-5 text-lg text-white md:text-2xl">
             A web app that turns exam prep into a game.
           </p>
         </div>
@@ -128,15 +122,15 @@ export function IeltsPage() {
           <div className="md:col-span-4">
             <HUDLabel id="A">The pitch</HUDLabel>
           </div>
-          <p className="md:col-span-8 text-lg leading-relaxed text-foreground/80 md:text-2xl md:leading-relaxed">
+          <p className="md:col-span-8 text-lg leading-relaxed text-white md:text-2xl md:leading-relaxed">
             To keep students engaged, the app gamifies IELTS preparation.
             Learners climb an{' '}
-            <span className="font-semibold text-[#CBEE4C] cyber-glow">
+            <span className="font-semibold text-[#4f8dff]">
               ELO rating system
             </span>{' '}
             across Reading, Writing, Speaking, and Listening, and personalize
             their experience with rich{' '}
-            <span className="font-semibold text-[#CBEE4C] cyber-glow">
+            <span className="font-semibold text-[#4f8dff]">
               theme customization
             </span>{' '}
             — including a time-aware sky with live drifting clouds.

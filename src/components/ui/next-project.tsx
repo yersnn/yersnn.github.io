@@ -7,16 +7,11 @@ interface NextProjectProps {
 
 export function NextProject({ label, href }: NextProjectProps) {
   return (
-    <div className="mt-32 border-t border-border pt-16">
-      <div className="mx-auto max-w-[1600px] px-12">
-        <Link
-          to={href}
-          className="cursor-target group inline-flex flex-col"
-        >
-          <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">
-            Next project
-          </span>
-          <span className="mt-3 inline-flex items-baseline gap-4 text-4xl font-semibold tracking-tight transition-colors duration-200 group-hover:text-[#CBEE4C] md:text-6xl">
+    <div className="mt-32 md:mt-40">
+      <div className="mx-auto max-w-[1600px] px-4 md:px-12">
+        <Link to={href} className="group inline-flex flex-col text-white">
+          <span className="text-sm font-semibold text-[#4f8dff] md:text-base">Next project</span>
+          <span className="mt-3 inline-flex items-baseline gap-4 text-4xl font-bold tracking-tight transition-colors duration-200 group-hover:text-[#4f8dff] md:text-6xl">
             {label}
             <span
               aria-hidden="true"
