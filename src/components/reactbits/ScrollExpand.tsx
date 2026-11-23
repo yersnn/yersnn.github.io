@@ -16,6 +16,7 @@ type ConfigKey =
   | 'startWidth'
   | 'startHeight'
   | 'startRadius'
+  | 'aspect'
   | 'endRadius'
   | 'mediaZoom'
   | 'scrollDistance'
@@ -35,6 +36,8 @@ export interface ScrollExpandProps {
   startWidth?: number;
   startHeight?: number;
   startRadius?: number;
+  /** Width / height of the media. When set, the frame keeps this ratio so the media is never cropped or letterboxed. */
+  aspect?: number;
   endRadius?: number;
   mediaZoom?: number;
   scrollDistance?: number;
@@ -59,6 +62,7 @@ const ScrollExpand: React.FC<ScrollExpandProps> = ({
   startWidth = 42,
   startHeight = 58,
   startRadius = 24,
+  aspect = 0,
   endRadius = 0,
   mediaZoom = 1.35,
   scrollDistance = 1.2,
@@ -89,6 +93,7 @@ const ScrollExpand: React.FC<ScrollExpandProps> = ({
     startWidth,
     startHeight,
     startRadius,
+    aspect,
     endRadius,
     mediaZoom,
     scrollDistance,
@@ -112,7 +117,26 @@ const ScrollExpand: React.FC<ScrollExpandProps> = ({
     const ix = Math.max(0, (100 - w) / 2);
     const iy = Math.max(0, (100 - h) / 2);
     const r = c.startRadius + (c.endRadius - c.startRadius) * e;
-    frame.style.clipPath = `inset(${iy}% ${ix}% ${iy}% ${ix}% round ${r}px)`;
+    const stage = stageRef.current;
+    if (c.aspect > 0 && stage && stage.clientWidth > 0 && stage.clientHeight > 0) {
+      const sw = stage.clientWidth;
+      const sh = stage.clientHeight;
+      const fromW = (c.startWidth / 100) * sw;
+      const toW = Math.min(sw, sh * c.aspect);
+      const fw = fromW + (toW - fromW) * e;
+      const fh = fw / c.aspect;
+      frame.style.clipPath = 'none';
+      frame.style.overflow = 'hidden';
+      frame.style.borderRadius = `${r}px`;
+      frame.style.left = `${(sw - fw) / 2}px`;
+      frame.style.top = `${(sh - fh) / 2}px`;
+      frame.style.right = 'auto';
+      frame.style.bottom = 'auto';
+      frame.style.width = `${fw}px`;
+      frame.style.height = `${fh}px`;
+    } else {
+      frame.style.clipPath = `inset(${iy}% ${ix}% ${iy}% ${ix}% round ${r}px)`;
+    }
 
     media.style.transform = `scale(${c.mediaZoom + (1 - c.mediaZoom) * e})`;
 
@@ -131,7 +155,7 @@ const ScrollExpand: React.FC<ScrollExpandProps> = ({
     }
 
     if (overlayRef.current) {
-      const inn = smoothstep(0.68, 1, p);
+      const inn = smoothstep(0.94, 1, p);
       overlayRef.current.style.opacity = `${inn}`;
       overlayRef.current.style.transform = `translate3d(0, ${18 * (1 - inn)}px, 0)`;
     }

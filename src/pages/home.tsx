@@ -6,7 +6,6 @@ import FadeContent from '@/components/reactbits/FadeContent'
 import ScrollExpand from '@/components/reactbits/ScrollExpand'
 import SpecularButton from '@/components/reactbits/SpecularButton'
 import GradualBlur from '@/components/reactbits/GradualBlur'
-import AsciiButterflies from '@/components/ascii-butterflies'
 import './home.css'
 
 const projects = [
@@ -80,10 +79,9 @@ export function HomePage() {
         <ScrollExpand
           src="/home/wildflower-hills.jpg"
           alt="Wildflower hills by the lily pond"
-          title="Tools people come back to every day"
           useWindowScroll
+          aspect={4096 / 2305}
           startWidth={62}
-          startHeight={58}
           startRadius={28}
           endRadius={0}
           mediaZoom={1}
@@ -91,7 +89,7 @@ export function HomePage() {
           holdDistance={0.25}
           overlayScrim={0.3}
         >
-          <AsciiButterflies />
+          <h2 className="home-expand__title">Tools people come back to every day</h2>
         </ScrollExpand>
       </section>
 
