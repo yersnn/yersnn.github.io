@@ -6,6 +6,7 @@ import FadeContent from '@/components/reactbits/FadeContent'
 import ScrollExpand from '@/components/reactbits/ScrollExpand'
 import SpecularButton from '@/components/reactbits/SpecularButton'
 import GradualBlur from '@/components/reactbits/GradualBlur'
+import AsciiButterflies from '@/components/ascii-butterflies'
 import './home.css'
 
 const projects = [
@@ -89,7 +90,9 @@ export function HomePage() {
           scrollDistance={0.9}
           holdDistance={0.25}
           overlayScrim={0.3}
-        />
+        >
+          <AsciiButterflies />
+        </ScrollExpand>
       </section>
 
       <section id="work" className="home-work">
