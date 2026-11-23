@@ -43,19 +43,13 @@ function ParticleTitle() {
   return <canvas ref={canvasRef} aria-label="Yersultan" className={`particle-title ${ready ? 'is-ready' : ''}`} />
 }
 
-function Reveal({ children, className = '' }: { children: React.ReactNode; className?: string }) {
-  const ref = useRef<HTMLDivElement>(null); const [visible, setVisible] = useState(false)
-  useEffect(() => { const node = ref.current; if (!node) return; const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) { setVisible(true); observer.disconnect() } }, { threshold: 0.18 }); observer.observe(node); return () => observer.disconnect() }, [])
-  return <div ref={ref} className={`fade-content ${visible ? 'is-visible' : ''} ${className}`}>{children}</div>
-}
-
-function DitherVeil() { return <div className="dither-veil" aria-hidden="true"><span /><span /><span /><span /><span /></div> }
+import { DitherVeil, FadeContent, FallingText, LaserFlow, PixelSwap } from '@/components/react-bits-effects'
 
 export function HomePage() {
   return <main className="portfolio-home">
     <section className="hero-stage"><DitherVeil /><div className="hero-kicker"><span className="status-dot" /> UI/UX designer · Astana, Kazakhstan</div><ParticleTitle /><p className="hero-intro">I design digital products that feel clear, alive, and easy to return to.</p><a className="scroll-cue" href="#work"><span>Scroll to explore</span><i /></a></section>
-    <section id="work" className="work-section"><Reveal className="section-heading"><p className="eyebrow">Selected work / 2024—26</p><h2>Three products.<br /><em>One point of view.</em></h2><p className="heading-note">Interfaces for learning, planning, and growing with confidence.</p></Reveal><div className="project-stack">{projects.map((project) => <Reveal key={project.href} className="project-reveal"><Link to={project.href} className={`project-card accent-${project.accent}`}><div className="project-visual"><div className="pixel-swap" /><div className="laser-line" /></div><div className="project-copy"><div className="project-topline"><span>{project.number}</span><span>{project.type}</span></div><h3>{project.title}</h3><p>{project.description}</p><span className="project-link">View project <b>↗</b></span></div></Link></Reveal>)}</div></section>
-    <section className="signal-section"><Reveal><p className="eyebrow">A little more signal</p><h2>Good design gives<br /><span>attention somewhere to go.</span></h2><div className="signal-orbit"><div /><div /><div /></div></Reveal></section>
-    <footer className="portfolio-footer"><div className="footer-line" /><p className="eyebrow">Available for thoughtful collaborations</p><div className="falling-text" aria-label="Let's make something clear">LET'S MAKE SOMETHING CLEAR</div><div className="footer-bottom"><span>Yersultan Zhumalin</span><a href="mailto:hello@yersnn.com">hello@yersnn.com ↗</a><span>© 2026</span></div></footer>
+    <section id="work" className="work-section"><FadeContent className="section-heading"><p className="eyebrow">Selected work / 2024—26</p><h2>Three products.<br /><em>One point of view.</em></h2><p className="heading-note">Interfaces for learning, planning, and growing with confidence.</p></FadeContent><div className="project-stack">{projects.map((project) => <FadeContent key={project.href} className="project-reveal"><Link to={project.href} className={`project-card accent-${project.accent}`}><div className="project-visual"><PixelSwap before="/themes/light-1.jpg" after="/themes/dark-1.jpg" /><LaserFlow /></div><div className="project-copy"><div className="project-topline"><span>{project.number}</span><span>{project.type}</span></div><h3>{project.title}</h3><p>{project.description}</p><span className="project-link">View project <b>↗</b></span></div></Link></FadeContent>)}</div></section>
+    <section className="signal-section"><FadeContent><p className="eyebrow">A little more signal</p><h2>Good design gives<br /><span>attention somewhere to go.</span></h2><div className="signal-orbit"><div /><div /><div /></div></FadeContent></section>
+    <footer className="portfolio-footer"><div className="footer-line" /><p className="eyebrow">Available for thoughtful collaborations</p><FallingText>LET'S MAKE SOMETHING CLEAR</FallingText><div className="footer-bottom"><span>Yersultan Zhumalin</span><a href="mailto:hello@yersnn.com">hello@yersnn.com ↗</a><span>© 2026</span></div></footer>
   </main>
 }
