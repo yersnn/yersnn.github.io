@@ -255,12 +255,18 @@
   padding: clamp(40px, 6vw, 80px) 16px 32px;
 }
 
-.home-footer__falling {
-  position: relative;
-  height: clamp(300px, 46vw, 520px);
-  font-weight: 800;
-  letter-spacing: -0.04em;
+.home-footer__title {
+  margin-bottom: clamp(56px, 8vw, 110px);
+  max-width: 14ch;
+  font-size: clamp(2.6rem, 7vw, 6.5rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.045em;
   color: #ffffff;
+}
+
+.home-footer__title span {
+  color: #4f8dff;
 }
 
 .home-footer__bar {

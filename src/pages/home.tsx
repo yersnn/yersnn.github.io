@@ -4,7 +4,6 @@ import DitherVeil from '@/components/reactbits/DitherVeil'
 import PixelSwap from '@/components/reactbits/PixelSwap'
 import LaserFlow from '@/components/reactbits/LaserFlow'
 import FadeContent from '@/components/reactbits/FadeContent'
-import FallingText from '@/components/reactbits/FallingText'
 import './home.css'
 
 const projects = [
@@ -151,16 +150,9 @@ export function HomePage() {
       </section>
 
       <footer className="home-footer">
-        <div className="home-footer__falling">
-          <FallingText
-            text="Let's make something clear"
-            highlightWords={['clear']}
-            trigger="scroll"
-            theme="dark"
-            accentColor="#4f8dff"
-            fontSize="clamp(2.6rem, 9vw, 7.5rem)"
-          />
-        </div>
+        <h2 className="home-footer__title">
+          Let's make something <span>clear</span>
+        </h2>
         <div className="home-footer__bar">
           <a href="mailto:hello@yersnn.com">hello@yersnn.com</a>
           <span>© 2026 Yersultan Zhumalin</span>
