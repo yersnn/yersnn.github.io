@@ -68,14 +68,6 @@ export function HomePage() {
         <p className="home-hero__role">Product &amp; UI/UX designer</p>
       </section>
 
-      <section id="intro" className="home-intro">
-        <FadeContent effect="focus" blur duration={1.2}>
-          <p className="home-intro__text">
-            I design digital products that feel clear, alive, and easy to come back to.
-          </p>
-        </FadeContent>
-      </section>
-
       <section className="home-expand">
         <ScrollExpand
           src="/home/wildflower-hills.jpg"
@@ -90,9 +82,18 @@ export function HomePage() {
           holdDistance={0.25}
           overlayScrim={0.3}
         >
-          <TrackedButterflyAscii className="home-expand__butterfly" />
+          <TrackedButterflyAscii className="home-expand__butterfly home-expand__butterfly--corner" />
+          <TrackedButterflyAscii className="home-expand__butterfly home-expand__butterfly--left" />
           <h2 className="home-expand__title">Tools people come back to every day</h2>
         </ScrollExpand>
+      </section>
+
+      <section id="intro" className="home-intro">
+        <FadeContent effect="focus" blur duration={1.2}>
+          <p className="home-intro__text">
+            I design digital products that feel clear, alive, and easy to come back to.
+          </p>
+        </FadeContent>
       </section>
 
       <section id="work" className="home-work">

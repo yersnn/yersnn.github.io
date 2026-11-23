@@ -162,7 +162,18 @@
 
 .home-expand .home-expand__butterfly {
   position: absolute;
-  inset: 0;
+  width: 50%;
+  height: 44%;
+}
+
+.home-expand .home-expand__butterfly--corner {
+  right: 2%;
+  bottom: 6%;
+}
+
+.home-expand .home-expand__butterfly--left {
+  left: 2%;
+  bottom: 10%;
 }
 
 .home-expand__title {

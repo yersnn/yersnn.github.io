@@ -2,9 +2,6 @@ import { useEffect, useRef, type ComponentProps } from 'react'
 import { bindFullscreenQuad, createProgram } from '@/lib/webgl'
 import { cn } from '@/lib/utils'
 
-type RGB = [number, number, number]
-type Theme = { body: RGB; scan: [RGB, RGB, RGB]; render: [RGB, RGB, RGB]; shine: RGB }
-
 const TAU = Math.PI * 2
 const COLUMNS = 42
 const CELL_ASPECT = 1.5
@@ -19,35 +16,13 @@ const FORE = [0.573, -0.284, 0.64, 0.24, -0.46]
 const HIND = [0.45, 0.38, 0.46, 0.3, 0.35]
 const BODY = [-0.3, 0.5]
 
-const THEMES: Record<'dark' | 'light', Theme> = {
-  dark: {
-    body: [70, 100, 255],
-    scan: [
-      [28, 92, 80],
-      [150, 255, 215],
-      [70, 235, 230],
-    ],
-    render: [
-      [52, 92, 255],
-      [140, 96, 255],
-      [236, 120, 226],
-    ],
-    shine: [255, 240, 255],
-  },
-  light: {
-    body: [45, 65, 200],
-    scan: [
-      [120, 190, 172],
-      [0, 130, 105],
-      [0, 150, 170],
-    ],
-    render: [
-      [45, 75, 225],
-      [125, 60, 220],
-      [205, 70, 180],
-    ],
-    shine: [40, 20, 110],
-  },
+// Pure white: every shader colour role is white, so only alpha and cell shading vary.
+const WHITE = [1, 1, 1] as const
+const UNIFORM_COLORS = {
+  scan: [WHITE, WHITE, WHITE],
+  render: [WHITE, WHITE, WHITE],
+  body: [WHITE],
+  shine: [WHITE],
 }
 
 const VERTEX = `
@@ -147,20 +122,10 @@ void main() {
 }`
 
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v))
-const unit = (colors: RGB[]) => colors.flatMap((c) => c.map((v) => v / 255))
-
-// Reads the computed text colour back as rgb (browsers may report lab()/oklch()).
-const isDark = (el: Element) => {
-  const probe = document.createElement('canvas').getContext('2d')
-  if (!probe) return true
-  probe.fillStyle = getComputedStyle(el).color
-  probe.fillRect(0, 0, 1, 1)
-  const [r, g, b] = probe.getImageData(0, 0, 1, 1).data
-  return 0.299 * r + 0.587 * g + 0.114 * b > 128
-}
+const unit = (colors: readonly (readonly number[])[]) => colors.flat()
 
 /**
- * A WebGL pixel butterfly that flaps, drifts, and follows the pointer.
+ * A small white WebGL pixel butterfly that flaps, drifts, and follows the pointer.
  * Pointer clicks send a ripple across the wings. Holds still for reduced-motion users.
  */
 function TrackedButterflyAscii({ className, ...props }: ComponentProps<'div'>) {
@@ -203,7 +168,6 @@ function TrackedButterflyAscii({ className, ...props }: ComponentProps<'div'>) {
     let dpr = 1
     let scale = 0
     let cell = 4
-    let theme = THEMES.dark
     let time = 0
     let phase = 0
     let startle = 0
@@ -272,10 +236,10 @@ function TrackedButterflyAscii({ className, ...props }: ComponentProps<'div'>) {
       gl.uniform1f(loc.time, time)
       gl.uniform3f(loc.pointer, pointer.x, pointer.y, pointer.active ? 1 : 0)
       gl.uniform4fv(loc.ripple, rippleData)
-      gl.uniform3fv(loc.scan, unit(theme.scan))
-      gl.uniform3fv(loc.render, unit(theme.render))
-      gl.uniform3fv(loc.body, unit([theme.body]))
-      gl.uniform3fv(loc.shine, unit([theme.shine]))
+      gl.uniform3fv(loc.scan, unit(UNIFORM_COLORS.scan))
+      gl.uniform3fv(loc.render, unit(UNIFORM_COLORS.render))
+      gl.uniform3fv(loc.body, unit(UNIFORM_COLORS.body))
+      gl.uniform3fv(loc.shine, unit(UNIFORM_COLORS.shine))
       gl.drawArrays(gl.TRIANGLES, 0, 6)
     }
 
@@ -336,17 +300,6 @@ function TrackedButterflyAscii({ className, ...props }: ComponentProps<'div'>) {
       ripple(pointer.x, pointer.y)
     }
 
-    const syncTheme = () => {
-      theme = isDark(root) ? THEMES.dark : THEMES.light
-      if (motion.matches && w) render(0, true)
-    }
-    const themeObserver = new MutationObserver(syncTheme)
-    themeObserver.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class', 'style', 'data-theme'],
-    })
-    syncTheme()
-
     const resizeObserver = new ResizeObserver(resize)
     resizeObserver.observe(root)
     const intersection = new IntersectionObserver(([entry]) => {
@@ -363,7 +316,6 @@ function TrackedButterflyAscii({ className, ...props }: ComponentProps<'div'>) {
       disposed = true
       cancelAnimationFrame(raf)
       resizeObserver.disconnect()
-      themeObserver.disconnect()
       intersection.disconnect()
       motion.removeEventListener('change', schedule)
       root.removeEventListener('pointermove', track)
