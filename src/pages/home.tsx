@@ -82,8 +82,10 @@ export function HomePage() {
           holdDistance={0.25}
           overlayScrim={0.3}
         >
-          <TrackedButterflyAscii className="home-expand__butterfly home-expand__butterfly--corner" />
-          <TrackedButterflyAscii className="home-expand__butterfly home-expand__butterfly--left" />
+          <TrackedButterflyAscii className="home-expand__butterfly home-expand__butterfly--tl" />
+          <TrackedButterflyAscii className="home-expand__butterfly home-expand__butterfly--tr" />
+          <TrackedButterflyAscii className="home-expand__butterfly home-expand__butterfly--bl" />
+          <TrackedButterflyAscii className="home-expand__butterfly home-expand__butterfly--br" />
           <h2 className="home-expand__title">Tools people come back to every day</h2>
         </ScrollExpand>
       </section>

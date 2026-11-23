@@ -160,20 +160,42 @@
   background: #0b0c0e;
 }
 
+/* Four butterflies in the corners, each its own size and tilt.
+   The component sizes the butterfly from its box, so box size sets butterfly size. */
 .home-expand .home-expand__butterfly {
   position: absolute;
-  width: 50%;
-  height: 44%;
 }
 
-.home-expand .home-expand__butterfly--corner {
+.home-expand .home-expand__butterfly--tl {
+  left: -2%;
+  top: 0;
+  width: 38%;
+  height: 46%;
+  transform: rotate(-16deg);
+}
+
+.home-expand .home-expand__butterfly--tr {
+  right: 4%;
+  top: 4%;
+  width: 28%;
+  height: 32%;
+  transform: rotate(12deg);
+}
+
+.home-expand .home-expand__butterfly--bl {
+  left: 8%;
+  bottom: 2%;
+  width: 26%;
+  height: 34%;
+  transform: rotate(-8deg);
+}
+
+.home-expand .home-expand__butterfly--br {
   right: 2%;
-  bottom: 6%;
-}
-
-.home-expand .home-expand__butterfly--left {
-  left: 3%;
-  top: 6%;
+  bottom: 0;
+  width: 40%;
+  height: 48%;
+  transform: rotate(6deg);
 }
 
 .home-expand__title {
@@ -249,7 +271,7 @@
   padding: clamp(40px, 6vw, 80px) 16px 32px;
 }
 
-.home-footer__title {
+.home-page .home-footer__title {
   margin-bottom: clamp(56px, 8vw, 110px);
   max-width: 14ch;
   font-size: clamp(2.6rem, 7vw, 6.5rem);
