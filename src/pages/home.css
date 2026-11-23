@@ -160,6 +160,11 @@
   background: #0b0c0e;
 }
 
+.home-expand .home-expand__butterfly {
+  position: absolute;
+  inset: 0;
+}
+
 .home-expand__title {
   max-width: 16ch;
   margin: 0;

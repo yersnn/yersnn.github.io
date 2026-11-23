@@ -4,6 +4,7 @@ import PixelSwap from '@/components/reactbits/PixelSwap'
 import LaserFlow from '@/components/reactbits/LaserFlow'
 import FadeContent from '@/components/reactbits/FadeContent'
 import ScrollExpand from '@/components/reactbits/ScrollExpand'
+import { TrackedButterflyAscii } from '@/components/tracked-butterfly-ascii'
 import SpecularButton from '@/components/reactbits/SpecularButton'
 import GradualBlur from '@/components/reactbits/GradualBlur'
 import './home.css'
@@ -89,6 +90,7 @@ export function HomePage() {
           holdDistance={0.25}
           overlayScrim={0.3}
         >
+          <TrackedButterflyAscii className="home-expand__butterfly" />
           <h2 className="home-expand__title">Tools people come back to every day</h2>
         </ScrollExpand>
       </section>
