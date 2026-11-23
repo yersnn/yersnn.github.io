@@ -1,7 +1,5 @@
 import { lazy, Suspense } from 'react'
-import { HashRouter, Routes, Route, useLocation } from 'react-router-dom'
-import PillNav from '@/components/ui/pill-nav'
-import TargetCursor from '@/components/ui/target-cursor'
+import { HashRouter, Routes, Route } from 'react-router-dom'
 import { HomePage } from '@/pages/home'
 
 const IeltsPage = lazy(() =>
@@ -17,13 +15,6 @@ const FunPage = lazy(() =>
   import('@/pages/fun').then((m) => ({ default: m.FunPage })),
 )
 
-const navItems = [
-  { label: 'Main', href: '/' },
-  { label: 'IELTS', href: '/ielts' },
-  { label: 'Test Prep', href: '/alims' },
-  { label: 'School', href: '/b2b-mobile' },
-  { label: 'Fun', href: '/fun' },
-]
 
 function PageFallback() {
   return (
@@ -37,20 +28,8 @@ function PageFallback() {
 }
 
 function Layout() {
-  const location = useLocation()
   return (
     <>
-      <TargetCursor targetSelector=".cursor-target" />
-      <PillNav
-        logo="/dinosaur.svg"
-        logoAlt="yersnn"
-        items={navItems}
-        activeHref={location.pathname}
-        baseColor="#cbee4c"
-        pillColor="#0a0a0c"
-        hoveredPillTextColor="#0a0a0c"
-        pillTextColor="#cbee4c"
-      />
       <Suspense fallback={<PageFallback />}>
         <Routes>
           <Route path="/" element={<HomePage />} />

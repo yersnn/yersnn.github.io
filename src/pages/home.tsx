@@ -1,141 +1,61 @@
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { HUDLabel } from '@/components/ui/hud-label'
-import {
-  BracketCorners,
-  StatusBadge,
-  ChevronCta,
-} from '@/components/ui/cyber'
-import {
-  GlitchText,
-  StatusTicker,
-  DecodeText,
-} from '@/components/ui/cyber-fx'
-import HeroAsciiOne from '@/components/ui/hero-ascii-one'
 
 const projects = [
-  {
-    href: '/ielts',
-    label: 'IELTS Prep',
-    tag: 'Web app',
-    blurb: 'Gamified IELTS prep with time-aware skies and theme presets.',
-    code: 'DOSSIER · 001',
-    status: 'ACTIVE',
-  },
-  {
-    href: '/alims',
-    label: 'Test Prep App',
-    tag: 'Mobile · iOS · Android',
-    blurb: 'Mobile companion for IELTS and SAT learners.',
-    code: 'DOSSIER · 002',
-    status: 'BUILDING',
-  },
-  {
-    href: '/b2b-mobile',
-    label: 'School App',
-    tag: 'Mobile · iOS · Android',
-    blurb:
-      'Mobile companion for students and parents tracking school performance.',
-    code: 'DOSSIER · 003',
-    status: 'BUILDING',
-  },
+  { href: '/ielts', number: '01', title: 'IELTS Prep', type: 'Web experience', description: 'A focused language-learning world built around rhythm, feedback, and momentum.', accent: 'lime' },
+  { href: '/alims', number: '02', title: 'Test Prep App', type: 'iOS · Android', description: 'A mobile companion that gives learners a clear next step every time they open it.', accent: 'blue' },
+  { href: '/b2b-mobile', number: '03', title: 'School App', type: 'Product system', description: 'A calmer way for schools, parents, and students to see progress together.', accent: 'pink' },
 ]
 
+function ParticleTitle() {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const [ready, setReady] = useState(false)
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const context = canvas.getContext('2d')
+    if (!context) return
+    const width = Math.min(window.innerWidth - 36, 1180)
+    const height = window.innerWidth < 640 ? 260 : 390
+    const ratio = window.devicePixelRatio || 1
+    canvas.width = width * ratio; canvas.height = height * ratio
+    canvas.style.width = `${width}px`; canvas.style.height = `${height}px`; context.scale(ratio, ratio)
+    context.font = `800 ${window.innerWidth < 640 ? 64 : 116}px Orbitron, sans-serif`; context.textBaseline = 'middle'; context.textAlign = 'center'
+    const text = 'YERSULTAN'; const textX = width / 2; const textY = height / 2
+    const target = context.measureText(text)
+    const particles: Array<{ x: number; y: number; tx: number; ty: number }> = []
+    const offscreen = document.createElement('canvas'); offscreen.width = width; offscreen.height = height
+    const off = offscreen.getContext('2d')!; off.font = context.font; off.textAlign = 'center'; off.textBaseline = 'middle'; off.fillText(text, textX, textY)
+    const pixels = off.getImageData(0, 0, width, height).data
+    for (let y = 0; y < height; y += 5) for (let x = 0; x < width; x += 5) if (pixels[(y * width + x) * 4 + 3] > 90) particles.push({ x: Math.random() * width, y: -Math.random() * height, tx: x, ty: y })
+    let frame = 0; const start = performance.now()
+    const render = (now: number) => {
+      const elapsed = now - start; context.clearRect(0, 0, width, height); context.fillStyle = 'rgba(203, 238, 76, 0.95)'
+      for (const particle of particles) {
+        const progress = Math.min(1, Math.max(0, (elapsed - (particle.tx / Math.max(1, target.width)) * 760) / 1900))
+        particle.x += (particle.tx - particle.x) * (0.025 + progress * 0.06); particle.y += (particle.ty - particle.y) * (0.025 + progress * 0.06)
+        context.fillRect(particle.x, particle.y, 2, 2)
+      }
+      frame = requestAnimationFrame(render)
+    }
+    setReady(true); frame = requestAnimationFrame(render); return () => cancelAnimationFrame(frame)
+  }, [])
+  return <canvas ref={canvasRef} aria-label="Yersultan" className={`particle-title ${ready ? 'is-ready' : ''}`} />
+}
+
+function Reveal({ children, className = '' }: { children: React.ReactNode; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null); const [visible, setVisible] = useState(false)
+  useEffect(() => { const node = ref.current; if (!node) return; const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) { setVisible(true); observer.disconnect() } }, { threshold: 0.18 }); observer.observe(node); return () => observer.disconnect() }, [])
+  return <div ref={ref} className={`fade-content ${visible ? 'is-visible' : ''} ${className}`}>{children}</div>
+}
+
+function DitherVeil() { return <div className="dither-veil" aria-hidden="true"><span /><span /><span /><span /><span /></div> }
+
 export function HomePage() {
-  return (
-    <div className="relative cyber-grid-fine">
-      {/* ─── Hero ──────────────────────────────────────────────────── */}
-      <header className="relative overflow-hidden bg-background pt-40 pb-20">
-        <div className="scanlines-drift pointer-events-none absolute inset-0 mix-blend-overlay opacity-40" />
-
-        <div className="relative mx-auto max-w-[1600px] px-12">
-          <div className="mb-6 flex flex-wrap items-center gap-3">
-            <HUDLabel id="000">Portfolio</HUDLabel>
-            <StatusBadge tone="lime" variant="solid">
-              ONLINE
-            </StatusBadge>
-            <StatusBadge tone="cyan" variant="outline">
-              v2.6.1
-            </StatusBadge>
-          </div>
-          <h1 className="max-w-[10ch] text-5xl font-bold leading-[0.95] tracking-tight md:text-7xl xl:text-8xl">
-            <GlitchText>Yersultan Zhumalin</GlitchText>
-          </h1>
-          <p className="mt-6 max-w-3xl text-lg leading-relaxed text-foreground md:text-2xl md:leading-snug">
-            UI/UX designer based in Astana, Kazakhstan.
-          </p>
-        </div>
-      </header>
-
-      {/* Status ticker bar (cyberpunk dashboard staple) */}
-      <StatusTicker
-        items={[
-          'SYSTEM ONLINE',
-          'DOSSIER LOADED · 003 ACTIVE',
-          'SIGNAL: STRONG',
-          'PROTOCOL // 002',
-          'NIGHT CITY · 2026',
-          'UPLINK READY',
-          'NO BIOLOGICAL DATA WAS FOUND',
-        ]}
-        speed="slow"
-      />
-
-      {/* ─── Selected work ─────────────────────────────────────────── */}
-      <div className="relative bg-background">
-        <div className="mx-auto max-w-[1600px] px-12 pt-24">
-          <div className="mb-12 grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-12">
-            <div className="md:col-span-5">
-              <HUDLabel id="001">Selected work</HUDLabel>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
-                <DecodeText text="Three projects, one ecosystem" />
-              </h2>
-            </div>
-            <p className="text-base leading-relaxed text-muted-foreground md:col-span-7 md:text-lg md:leading-relaxed">
-              A connected suite spanning consumer test-prep, school
-              management, and the desktop platform that ties them together.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-8">
-            {projects.map((p) => (
-              <Link
-                key={p.href}
-                to={p.href}
-                className="cursor-target group relative block"
-              >
-                <BracketCorners />
-                <div className="relative border border-border bg-card transition-colors group-hover:border-[#CBEE4C]/60">
-                  <div className="font-hud flex items-center justify-between border-b border-border bg-card/80 px-5 py-2.5 text-[10px] uppercase tracking-[0.3em]">
-                    <span className="text-[#CBEE4C]">▸ {p.code}</span>
-                    <span className="text-muted-foreground">{p.status}</span>
-                  </div>
-                  <div className="flex h-full flex-col justify-between gap-12 p-8 md:p-10">
-                    <div>
-                      <div className="font-hud text-xs uppercase tracking-[0.25em] text-muted-foreground">
-                        {p.tag}
-                      </div>
-                      <h3 className="mt-4 text-3xl font-semibold tracking-tight md:text-4xl">
-                        {p.label}
-                      </h3>
-                      <p className="mt-3 max-w-md text-base text-muted-foreground md:text-lg">
-                        {p.blurb}
-                      </p>
-                    </div>
-                    <div className="transition-colors group-hover:text-[#CBEE4C]">
-                      <ChevronCta>Enter dossier</ChevronCta>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-
-        <div className="pb-12" />
-      </div>
-
-      {/* ─── Closing CTA: OPEN UPLINK ─────────────────────────────── */}
-      <HeroAsciiOne />
-    </div>
-  )
+  return <main className="portfolio-home">
+    <section className="hero-stage"><DitherVeil /><div className="hero-kicker"><span className="status-dot" /> UI/UX designer · Astana, Kazakhstan</div><ParticleTitle /><p className="hero-intro">I design digital products that feel clear, alive, and easy to return to.</p><a className="scroll-cue" href="#work"><span>Scroll to explore</span><i /></a></section>
+    <section id="work" className="work-section"><Reveal className="section-heading"><p className="eyebrow">Selected work / 2024—26</p><h2>Three products.<br /><em>One point of view.</em></h2><p className="heading-note">Interfaces for learning, planning, and growing with confidence.</p></Reveal><div className="project-stack">{projects.map((project) => <Reveal key={project.href} className="project-reveal"><Link to={project.href} className={`project-card accent-${project.accent}`}><div className="project-visual"><div className="pixel-swap" /><div className="laser-line" /></div><div className="project-copy"><div className="project-topline"><span>{project.number}</span><span>{project.type}</span></div><h3>{project.title}</h3><p>{project.description}</p><span className="project-link">View project <b>↗</b></span></div></Link></Reveal>)}</div></section>
+    <section className="signal-section"><Reveal><p className="eyebrow">A little more signal</p><h2>Good design gives<br /><span>attention somewhere to go.</span></h2><div className="signal-orbit"><div /><div /><div /></div></Reveal></section>
+    <footer className="portfolio-footer"><div className="footer-line" /><p className="eyebrow">Available for thoughtful collaborations</p><div className="falling-text" aria-label="Let's make something clear">LET'S MAKE SOMETHING CLEAR</div><div className="footer-bottom"><span>Yersultan Zhumalin</span><a href="mailto:hello@yersnn.com">hello@yersnn.com ↗</a><span>© 2026</span></div></footer>
+  </main>
 }
