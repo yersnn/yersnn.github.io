@@ -85,7 +85,7 @@ export function HomePage() {
           startHeight={58}
           startRadius={28}
           endRadius={0}
-          mediaZoom={1.15}
+          mediaZoom={1}
           scrollDistance={0.9}
           holdDistance={0.25}
           overlayScrim={0.3}
@@ -109,7 +109,7 @@ export function HomePage() {
                       firstContent={<img src={project.from} alt="" />}
                       secondContent={<img src={project.to} alt="" />}
                       trigger="hover"
-                      aspectRatio={project.frame === 'wide' ? '16 / 10' : '4 / 5'}
+                      aspectRatio={project.frame === 'wide' ? '1600 / 874' : '4 / 5'}
                     />
                   </div>
                 </Link>
