@@ -1,8 +1,11 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import ParticleText from '@/components/reactbits/ParticleText'
 import PixelSwap from '@/components/reactbits/PixelSwap'
 import LaserFlow from '@/components/reactbits/LaserFlow'
 import FadeContent from '@/components/reactbits/FadeContent'
+import ScrollExpand from '@/components/reactbits/ScrollExpand'
+import SpecularButton from '@/components/reactbits/SpecularButton'
+import GradualBlur from '@/components/reactbits/GradualBlur'
 import './home.css'
 
 const projects = [
@@ -33,6 +36,8 @@ const projects = [
 ]
 
 export function HomePage() {
+  const navigate = useNavigate()
+
   return (
     <main className="home-page">
       <section className="home-hero" aria-label="Introduction">
@@ -70,11 +75,24 @@ export function HomePage() {
         </FadeContent>
       </section>
 
-      <section id="work" className="home-work">
-        <FadeContent className="home-work__title" blur>
-          <h2>Selected work</h2>
-        </FadeContent>
+      <section className="home-expand">
+        <ScrollExpand
+          src="/home/backgroundimg.jpg"
+          alt=""
+          title="Selected work"
+          useWindowScroll
+          startWidth={62}
+          startHeight={58}
+          startRadius={28}
+          endRadius={0}
+          mediaZoom={1.15}
+          scrollDistance={0.9}
+          holdDistance={0.25}
+          overlayScrim={0.3}
+        />
+      </section>
 
+      <section id="work" className="home-work">
         <div className="home-work__list">
           {projects.map((project, index) => (
             <FadeContent
@@ -84,23 +102,25 @@ export function HomePage() {
               delay={index * 0.12}
               threshold={0.2}
             >
-              <Link to={project.href} className="home-project__link">
-                <div className={`home-project__visual is-${project.frame}`}>
-                  <PixelSwap
-                    firstContent={<img src={project.from} alt="" />}
-                    secondContent={<img src={project.to} alt="" />}
-                    trigger="hover"
-                    aspectRatio={project.frame === 'wide' ? '16 / 10' : '4 / 5'}
-                  />
-                </div>
+              <div className="home-project__link">
+                <Link to={project.href} className="home-project__visual-link" aria-label={`Open ${project.title}`}>
+                  <div className={`home-project__visual is-${project.frame}`}>
+                    <PixelSwap
+                      firstContent={<img src={project.from} alt="" />}
+                      secondContent={<img src={project.to} alt="" />}
+                      trigger="hover"
+                      aspectRatio={project.frame === 'wide' ? '16 / 10' : '4 / 5'}
+                    />
+                  </div>
+                </Link>
                 <div className="home-project__meta">
                   <h3>{project.title}</h3>
                   <p>{project.description}</p>
-                  <span className="home-project__cta">
+                  <SpecularButton size="md" onClick={() => navigate(project.href)}>
                     View project <span aria-hidden="true">→</span>
-                  </span>
+                  </SpecularButton>
                 </div>
-              </Link>
+              </div>
             </FadeContent>
           ))}
         </div>
@@ -133,10 +153,14 @@ export function HomePage() {
           Let's make something <span>clear</span>
         </h2>
         <div className="home-footer__bar">
-          <a href="mailto:hello@yersnn.com">hello@yersnn.com</a>
+          <SpecularButton size="md" onClick={() => (window.location.href = 'mailto:hello@yersnn.com')}>
+            hello@yersnn.com
+          </SpecularButton>
           <span>© 2026 Yersultan Zhumalin</span>
         </div>
       </footer>
+
+      <GradualBlur position="bottom" target="page" height="16vh" strength={2} autoHide />
     </main>
   )
 }

@@ -403,8 +403,9 @@
 html,
 body {
   /* Defensive: prevent any descendant from ever causing horizontal page scroll.
-     Internal scroll containers (carousels, etc.) still scroll their own content. */
-  overflow-x: hidden;
+     `clip` (not `hidden`) so body does not become a scroll container, which would
+     break position: sticky for the homepage's scroll-expand section. */
+  overflow-x: clip;
 }
 
 body {
