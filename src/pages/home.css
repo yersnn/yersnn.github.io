@@ -124,6 +124,7 @@
   height: 100%;
   display: block;
   object-fit: contain;
+  padding: 5%;
 }
 
 .home-project__visual.is-phone {

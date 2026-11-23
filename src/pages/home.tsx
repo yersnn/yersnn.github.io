@@ -16,25 +16,25 @@ const projects = [
     href: '/ielts',
     title: 'IELTS Prep',
     description: 'A focused language-learning world built around rhythm, feedback, and momentum.',
-    from: '/themes/light-1.jpg',
-    to: '/themes/dark-1.jpg',
-    frame: 'wide',
+    from: '/mockups/landing/ielts-dark.webp',
+    to: '/mockups/landing/ielts-light.webp',
+    aspect: '1800 / 1252',
   },
   {
     href: '/alims',
     title: 'Test Prep App',
     description: 'A mobile companion that gives learners a clear next step every time they open it.',
-    from: '/alims/screen-1.png',
-    to: '/alims/screen-2.png',
-    frame: 'phone',
+    from: '/mockups/landing/alims-a.webp',
+    to: '/mockups/landing/alims-b.webp',
+    aspect: '1400 / 1373',
   },
   {
     href: '/b2b-mobile',
     title: 'School App',
     description: 'A calmer way for schools, parents, and students to see progress together.',
-    from: '/b2b-mobile/screen-1.png',
-    to: '/b2b-mobile/screen-2.png',
-    frame: 'phone',
+    from: '/mockups/landing/school-a.webp',
+    to: '/mockups/landing/school-b.webp',
+    aspect: '1400 / 1362',
   },
 ]
 
@@ -117,12 +117,12 @@ export function HomePage() {
             >
               <div className="home-project__link">
                 <Link to={project.href} className="home-project__visual-link" aria-label={`Open ${project.title}`}>
-                  <div className={`home-project__visual is-${project.frame}`}>
+                  <div className="home-project__visual">
                     <PixelSwap
                       firstContent={<img src={project.from} alt="" />}
                       secondContent={<img src={project.to} alt="" />}
                       trigger="hover"
-                      aspectRatio={project.frame === 'wide' ? '1600 / 874' : '4 / 5'}
+                      aspectRatio={project.aspect}
                     />
                   </div>
                 </Link>
