@@ -32,7 +32,7 @@
 .home-hero {
   position: relative;
   isolation: isolate;
-  background: radial-gradient(ellipse at 50% 42%, rgba(79, 141, 255, 0.12), transparent 62%), #0b0c0e;
+  background: #0b0c0e;
   min-height: 100svh;
   display: flex;
   flex-direction: column;

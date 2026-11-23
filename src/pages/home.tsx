@@ -43,12 +43,12 @@ export function HomePage() {
       <section className="home-hero" aria-label="Introduction">
         <div className="home-hero__name" role="heading" aria-level={1}>
           <ParticleText
-            text="Yersultan"
+            text="Yersultan Zhumalin"
             color="#ffffff"
             highlightColor="#4f8dff"
             fontFamily="Manrope, sans-serif"
             fontWeight={800}
-            fontSize="clamp(3.6rem, 15vw, 10.5rem)"
+            fontSize="clamp(1.9rem, 6.4vw, 7rem)"
             intro="rain"
             gatherDuration={1900}
             stagger={760}
