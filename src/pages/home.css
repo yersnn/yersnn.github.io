@@ -1,0 +1,312 @@
+/* Portfolio home — dark, white-first, with React Bits effects as deliberate moments. */
+
+:root:has(.home-page) body {
+  background: #0b0c0e;
+}
+
+.home-page {
+  min-height: 100vh;
+  background: #0b0c0e;
+  color: #ffffff;
+  overflow-x: hidden;
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+
+.home-page h1,
+.home-page h2,
+.home-page h3 {
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  color: #ffffff;
+  margin: 0;
+}
+
+.home-page a:focus-visible,
+.home-page button:focus-visible {
+  outline: 2px solid #4f8dff;
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
+/* ── Hero ─────────────────────────────────────────────────────────────── */
+
+.home-hero {
+  position: relative;
+  isolation: isolate;
+  background: radial-gradient(ellipse at 50% 42%, rgba(79, 141, 255, 0.12), transparent 62%), #0b0c0e;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 96px 16px 88px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.home-hero__name {
+  width: 100%;
+  max-width: 1100px;
+  height: clamp(150px, 26vw, 260px);
+  font-weight: 800;
+}
+
+.home-hero__name .particle-text {
+  min-height: 0;
+}
+
+.home-hero__role {
+  margin-top: 12px;
+  font-size: clamp(17px, 2vw, 22px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+}
+
+.home-hero__cue {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 56px;
+  height: 72px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+}
+
+.home-hero__cue::after {
+  content: '';
+  width: 1px;
+  height: 48px;
+  margin-top: 10px;
+  background: linear-gradient(#ffffff, rgba(255, 255, 255, 0));
+  animation: home-cue 2.4s ease-in-out infinite;
+}
+
+@keyframes home-cue {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translateY(10px);
+    opacity: 0.35;
+  }
+}
+
+/* ── Intro ────────────────────────────────────────────────────────────── */
+
+.home-intro {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: clamp(96px, 14vw, 180px) 16px clamp(72px, 10vw, 120px);
+}
+
+.home-intro__text {
+  max-width: 20ch;
+  font-size: clamp(2rem, 5.2vw, 4.75rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  color: #ffffff;
+}
+
+/* ── Selected work ────────────────────────────────────────────────────── */
+
+.home-work {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 16px clamp(96px, 14vw, 180px);
+}
+
+.home-work__title h2 {
+  margin-bottom: clamp(48px, 7vw, 88px);
+  font-size: clamp(2.4rem, 6vw, 5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.home-work__list {
+  display: grid;
+  gap: clamp(88px, 12vw, 150px);
+}
+
+.home-project__link {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+  gap: clamp(28px, 4vw, 56px);
+  align-items: center;
+  color: inherit;
+  text-decoration: none;
+}
+
+.home-project__visual {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #14161a;
+}
+
+.home-project__visual img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.home-project__visual.is-phone {
+  background: #0c0d10;
+}
+
+.home-project__visual.is-phone img {
+  object-fit: contain;
+  padding: 4% 0;
+}
+
+.home-project__meta h3 {
+  margin-bottom: 14px;
+  font-size: clamp(2rem, 3.6vw, 3.25rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+.home-project__meta p {
+  margin: 0 0 28px;
+  max-width: 30ch;
+  font-size: clamp(16px, 1.35vw, 19px);
+  line-height: 1.55;
+  color: #ffffff;
+}
+
+.home-project__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #0b0c0e;
+  font-size: 15px;
+  font-weight: 700;
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+.home-project__link:hover .home-project__cta {
+  background: #4f8dff;
+  color: #ffffff;
+}
+
+/* ── Laser Flow transition ────────────────────────────────────────────── */
+
+.home-laser {
+  position: relative;
+  height: clamp(300px, 60vh, 600px);
+  overflow: hidden;
+  background: #0b0c0e;
+}
+
+.home-laser__veil {
+  position: absolute;
+  inset: 0;
+  opacity: 0.85;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(transparent, #000 22%, #000 78%, transparent);
+  mask-image: linear-gradient(transparent, #000 22%, #000 78%, transparent);
+}
+
+/* ── Design statement ─────────────────────────────────────────────────── */
+
+.home-statement {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: clamp(110px, 15vw, 210px) 16px;
+  display: grid;
+  gap: clamp(28px, 4vw, 44px);
+}
+
+.home-statement h2 {
+  max-width: 15ch;
+  font-size: clamp(2.4rem, 6.4vw, 6rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.home-statement p {
+  max-width: 40ch;
+  font-size: clamp(1.1rem, 1.6vw, 1.5rem);
+  font-weight: 500;
+  line-height: 1.5;
+  color: #ffffff;
+}
+
+/* ── Footer ───────────────────────────────────────────────────────────── */
+
+.home-footer {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: clamp(40px, 6vw, 80px) 16px 32px;
+}
+
+.home-footer__falling {
+  position: relative;
+  height: clamp(300px, 46vw, 520px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+}
+
+.home-footer__bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.home-footer__bar a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.home-footer__bar a:hover {
+  color: #4f8dff;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────── */
+
+@media (max-width: 760px) {
+  .home-project__link {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .home-project__visual {
+    border-radius: 18px;
+  }
+
+  .home-project__visual.is-phone {
+    aspect-ratio: 4 / 5;
+  }
+
+  .home-footer__bar {
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-hero__cue::after {
+    animation: none;
+  }
+}
