@@ -16,8 +16,8 @@ const projects = [
     href: '/ielts',
     title: 'IELTS Prep',
     description: 'A focused language-learning world built around rhythm, feedback, and momentum.',
-    from: '/mockups/landing/ielts-dark.webp',
-    to: '/mockups/landing/ielts-light.webp',
+    from: '/mockups/landing/ielts-sky.webp',
+    to: '/mockups/landing/ielts-dark.webp',
     aspect: '1800 / 1252',
   },
   {
