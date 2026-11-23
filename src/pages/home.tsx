@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import BlurText from '@/components/reactbits/BlurText'
 import ParticleText from '@/components/reactbits/ParticleText'
 import PixelSwap from '@/components/reactbits/PixelSwap'
 import LaserFlow from '@/components/reactbits/LaserFlow'
@@ -38,6 +40,7 @@ const projects = [
 
 export function HomePage() {
   const navigate = useNavigate()
+  const [nameReady, setNameReady] = useState(false)
 
   return (
     <main className="home-page">
@@ -55,10 +58,20 @@ export function HomePage() {
             stagger={780}
             burstStrength={2.3}
             glow={false}
+            onGathered={() => setNameReady(true)}
           />
         </div>
 
-        <p className="home-hero__role">Product &amp; UI/UX designer</p>
+        {nameReady && (
+          <BlurText
+            text="Product design, UI/UX, graphic design, a little front end, and everything else. I don't know, something like that."
+            className="home-hero__role"
+            animateBy="words"
+            direction="top"
+            trigger="load"
+            delay={70}
+          />
+        )}
       </section>
 
       <section className="home-expand">

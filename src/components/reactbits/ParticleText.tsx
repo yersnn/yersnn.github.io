@@ -27,9 +27,11 @@ export interface ParticleTextProps {
   glow?: boolean;
   className?: string;
   style?: CSSProperties;
+  /** Called each time the particles finish gathering into the text. */
+  onGathered?: () => void;
 }
 
-type Settings = Required<Omit<ParticleTextProps, 'className' | 'style'>>;
+type Settings = Required<Omit<ParticleTextProps, 'className' | 'style' | 'onGathered'>>;
 type Intro = Settings['intro'];
 type Shape = Settings['shape'];
 type Rgb = { r: number; g: number; b: number };
@@ -132,9 +134,14 @@ const ParticleText = ({
   fontFamily = 'inherit',
   glow = true,
   className = '',
-  style
+  style,
+  onGathered
 }: ParticleTextProps) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const onGatheredRef = useRef(onGathered);
+  useEffect(() => {
+    onGatheredRef.current = onGathered;
+  });
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const settingsRef = useRef<Settings | null>(null);
   const wakeRef = useRef<() => void>(() => {});
@@ -508,7 +515,10 @@ const ParticleText = ({
         buckets[fade * TONES + tone].push(particle);
       }
 
-      if (gathering && complete) gathering = false;
+      if (gathering && complete) {
+        gathering = false;
+        onGatheredRef.current?.();
+      }
       if (bursting && !settling) bursting = false;
 
       ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -733,6 +743,7 @@ const ParticleText = ({
         startIntro(true);
       } else {
         gathering = false;
+        onGatheredRef.current?.();
       }
 
       step(performance.now());
@@ -789,6 +800,7 @@ const ParticleText = ({
       reducedMotion = event.matches;
       if (reducedMotion) {
         gathering = false;
+        onGatheredRef.current?.();
         bursting = false;
         particles.forEach(particle => {
           particle.x = particle.targetX;
