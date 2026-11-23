@@ -138,13 +138,13 @@ export function HomePage() {
 
       <section className="home-statement">
         <FadeContent blur>
-          <h2>Good design gives attention somewhere to go.</h2>
-        </FadeContent>
-        <FadeContent blur delay={0.15}>
-          <p>
-            I shape the small moments that make software feel calm and worth coming back to: the
-            first screen, the next step, and the feeling that nothing is in the way.
-          </p>
+          <blockquote className="home-statement__quote">
+            <p>
+              Perfection is achieved not when there is nothing left to add, but when there is nothing
+              left to take away.
+            </p>
+            <cite>Antoine de Saint-Exupéry</cite>
+          </blockquote>
         </FadeContent>
       </section>
 
