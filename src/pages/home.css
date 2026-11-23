@@ -152,21 +152,18 @@
 }
 
 .home-project__cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 20px;
-  border-radius: 999px;
-  background: #ffffff;
-  color: #0b0c0e;
-  font-size: 15px;
-  font-weight: 700;
-  transition: background-color 0.35s ease, color 0.35s ease;
+  display: inline-block;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 6px;
+  transition: color 0.3s ease;
 }
 
 .home-project__link:hover .home-project__cta {
-  background: #4f8dff;
-  color: #ffffff;
+  color: #4f8dff;
 }
 
 /* ── Laser Flow transition ────────────────────────────────────────────── */
