@@ -27,7 +27,7 @@ export interface ParticleTextProps {
   glow?: boolean;
   className?: string;
   style?: CSSProperties;
-  /** Called each time the particles finish gathering into the text. */
+  /** Called once per intro when the text has mostly formed (about 70% of particles landed). */
   onGathered?: () => void;
 }
 
@@ -196,6 +196,7 @@ const ParticleText = ({
     let sampledText = '';
     let requestedSize = '';
     let gathering = false;
+    let announced = false;
     let gatherStart = 0;
     let introMode: Intro = 'gather';
     let bursting = false;
@@ -326,6 +327,7 @@ const ParticleText = ({
 
       gatherStart = performance.now();
       gathering = true;
+      announced = false;
       wake();
     };
 
@@ -423,6 +425,7 @@ const ParticleText = ({
       const sizeBase = Math.max(0.1, Number(s.particleSize) || 0);
       const restLength = Math.max(2, sizeBase * 0.8 + Math.max(2, Math.floor(Number(s.density) || 0)) * 0.7);
       let complete = true;
+      let landed = 0;
       let moving = false;
       let settling = false;
 
@@ -450,6 +453,7 @@ const ParticleText = ({
             baseY = particle.startY + (particle.targetY - particle.startY) * eased;
           }
           if (progress < 1) complete = false;
+          if (progress >= 0.9) landed += 1;
         } else if (drift) {
           baseX += Math.sin(time * 0.9 + particle.seed * 10) * s.idleDrift * particle.depth;
           baseY += Math.cos(time * 0.75 + particle.depth * 10) * s.idleDrift * particle.depth;
@@ -515,10 +519,12 @@ const ParticleText = ({
         buckets[fade * TONES + tone].push(particle);
       }
 
-      if (gathering && complete) {
-        gathering = false;
+      // Announce once the text has mostly formed, without waiting for the slowest particles.
+      if (gathering && !announced && (complete || landed >= particles.length * 0.7)) {
+        announced = true;
         onGatheredRef.current?.();
       }
+      if (gathering && complete) gathering = false;
       if (bursting && !settling) bursting = false;
 
       ctx.setTransform(1, 0, 0, 1, 0, 0);

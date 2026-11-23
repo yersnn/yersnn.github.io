@@ -64,12 +64,13 @@ export function HomePage() {
 
         {nameReady && (
           <BlurText
-            text="Product design, UI/UX, graphic design, a little front end, and everything else. I don't know, something like that."
+            text="Designs products, pushes pixels, occasionally loses an argument with CSS."
             className="home-hero__role"
             animateBy="words"
             direction="top"
             trigger="load"
-            delay={70}
+            delay={35}
+            stepDuration={0.25}
           />
         )}
       </section>
