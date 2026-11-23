@@ -115,8 +115,7 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  border-radius: 24px;
-  background: #14161a;
+  background: transparent;
 }
 
 .home-project__visual img {
@@ -125,10 +124,6 @@
   display: block;
   object-fit: contain;
   padding: 5%;
-}
-
-.home-project__visual.is-phone {
-  background: #0c0d10;
 }
 
 .home-project__visual.is-phone img {
