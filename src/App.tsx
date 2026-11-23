@@ -1,5 +1,5 @@
-import { lazy, Suspense } from 'react'
-import { HashRouter, Routes, Route } from 'react-router-dom'
+import { lazy, Suspense, useEffect } from 'react'
+import { HashRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { HomePage } from '@/pages/home'
 
 const IeltsPage = lazy(() =>
@@ -28,6 +28,12 @@ function PageFallback() {
 }
 
 function Layout() {
+  const { pathname } = useLocation()
+  // Start each page at the top so its intro animation is visible.
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
+
   return (
     <>
       <Suspense fallback={<PageFallback />}>

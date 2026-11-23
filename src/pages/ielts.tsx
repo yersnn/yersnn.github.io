@@ -2,101 +2,38 @@ import type { ReactNode } from 'react'
 import './project.css'
 import { ProjectMeta } from '@/components/ui/project-meta'
 import { NextProject } from '@/components/ui/next-project'
-import { HUDLabel } from '@/components/ui/hud-label'
+import FadeContent from '@/components/reactbits/FadeContent'
 import { SkyShowcase } from '@/components/ielts/sky-showcase'
 import { ThemeShowcase } from '@/components/ielts/theme-showcase'
 import { LessonsShowcase } from '@/components/ielts/lessons-showcase'
 import { MocksShowcase } from '@/components/ielts/mocks-showcase'
 import { ScreensCarousel } from '@/components/ielts/screens-carousel'
 
-const meta = [
-  { label: 'Role', value: 'Product designer' },
-  { label: 'Year', value: '2026' },
-  { label: 'Platform', value: 'Web' },
-  { label: 'Status', value: 'In active development' },
-]
-
-function SectionHeader({
-  eyebrow,
-  id,
-  title,
-  description,
-}: {
-  eyebrow: string
-  id?: string
-  title: string
-  description: string
-}) {
-  return (
-    <div className="mx-auto mb-12 max-w-[1600px] px-4 md:px-12">
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-12">
-        <div className="md:col-span-5">
-          <HUDLabel id={id}>{eyebrow}</HUDLabel>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
-            {title}
-          </h2>
-        </div>
-        <p className="md:col-span-7 text-base leading-relaxed text-white md:text-lg md:leading-relaxed">
-          {description}
-        </p>
-      </div>
-    </div>
-  )
-}
-
-function Section({
-  eyebrow,
-  id,
-  title,
-  description,
-  children,
-}: {
-  eyebrow: string
-  id?: string
-  title: string
-  description: string
-  hazard?: string
-  children: ReactNode
-}) {
-  return (
-    <div>
-      <SectionHeader
-        eyebrow={eyebrow}
-        id={id}
-        title={title}
-        description={description}
-      />
-      {children}
-    </div>
-  )
-}
-
 const onboardingSteps = [
-  {
-    src: '/ielts-onboarding/step-1.png',
-    alt: 'Step 1 — choose a featured mode (Gamified / Sky)',
-  },
-  {
-    src: '/ielts-onboarding/step-2.png',
-    alt: 'Step 2 — choose a color theme',
-  },
-  {
-    src: '/ielts-onboarding/step-3.png',
-    alt: 'Step 3 — pick your pixel cat companion',
-  },
+  { src: '/ielts-onboarding/step-1.png', alt: 'Step 1 — choose a featured mode (Gamified / Sky)' },
+  { src: '/ielts-onboarding/step-2.png', alt: 'Step 2 — choose a color theme' },
+  { src: '/ielts-onboarding/step-3.png', alt: 'Step 3 — pick your pixel cat companion' },
 ]
+
+function Section({ title, line, children }: { title: string; line: string; children: ReactNode }) {
+  return (
+    <section>
+      <FadeContent blur className="mx-auto mb-10 max-w-[1600px] px-4 md:mb-14 md:px-12">
+        <h2 className="text-4xl leading-none md:text-6xl">{title}</h2>
+        <p className="mt-4 text-lg text-white md:text-xl">{line}</p>
+      </FadeContent>
+      <FadeContent blur delay={0.15} threshold={0.15}>
+        {children}
+      </FadeContent>
+    </section>
+  )
+}
 
 function StyleOnboarding() {
   return (
     <ScreensCarousel
       items={onboardingSteps.map((s) => (
-        <img
-          key={s.src}
-          src={s.src}
-          alt={s.alt}
-          loading="lazy"
-          className="h-full w-full object-contain"
-        />
+        <img key={s.src} src={s.src} alt={s.alt} loading="lazy" className="h-full w-full object-contain" />
       ))}
     />
   )
@@ -104,88 +41,37 @@ function StyleOnboarding() {
 
 export function IeltsPage() {
   return (
-    <section className="relative w-full project-page pt-24 md:pt-32 pb-32">
+    <section className="project-page relative w-full pt-28 pb-32 md:pt-40">
       <div className="mx-auto max-w-[1600px] px-4 md:px-12">
-        <div className="mb-12">
-          <HUDLabel id="001">Project</HUDLabel>
-          <h1 className="mt-3 text-5xl font-semibold tracking-tight md:text-7xl">
-            IELTS Prep
-          </h1>
-          <p className="mt-5 text-lg text-white md:text-2xl">
-            A web app that turns exam prep into a game.
-          </p>
-        </div>
-
-        <ProjectMeta items={meta} />
-
-        <div className="mt-24 grid grid-cols-1 gap-12 md:grid-cols-12">
-          <div className="md:col-span-4">
-            <HUDLabel id="A">The pitch</HUDLabel>
-          </div>
-          <p className="md:col-span-8 text-lg leading-relaxed text-white md:text-2xl md:leading-relaxed">
-            To keep students engaged, the app gamifies IELTS preparation.
-            Learners climb an{' '}
-            <span className="font-semibold text-[#4f8dff]">
-              ELO rating system
-            </span>{' '}
-            across Reading, Writing, Speaking, and Listening, and personalize
-            their experience with rich{' '}
-            <span className="font-semibold text-[#4f8dff]">
-              theme customization
-            </span>{' '}
-            — including a time-aware sky with live drifting clouds.
-          </p>
-        </div>
+        <FadeContent effect="focus" blur trigger="mount" duration={1.1}>
+          <h1 className="text-6xl leading-[0.95] md:text-[8rem]">IELTS Prep</h1>
+        </FadeContent>
+        <FadeContent blur trigger="mount" delay={0.2}>
+          <p className="mt-6 text-xl text-white md:text-3xl">A web app that turns exam prep into a game.</p>
+        </FadeContent>
+        <FadeContent blur trigger="mount" delay={0.35} className="mt-8">
+          <ProjectMeta items={['Product designer', '2026', 'Web']} />
+        </FadeContent>
       </div>
 
-      <div className="mt-32 space-y-32">
-        <Section
-          eyebrow="Background"
-          id="01"
-          title="Time-based Sky"
-          description="The dashboard's background shifts from morning to day to night, with live drifting clouds. The sky responds to the learner's local time."
-          hazard="BACKGROUND // ATMOSPHERIC"
-        >
+      <div className="mt-28 space-y-32 md:mt-40 md:space-y-48">
+        <Section title="Time-based sky" line="Morning, day, and night, with live clouds.">
           <SkyShowcase />
         </Section>
 
-        <Section
-          eyebrow="Onboarding"
-          id="02"
-          title="Pick your style"
-          description="A three-step onboarding lets learners pick a featured mode, a color theme in light or dark, and a pixel cat companion — before they ever take a lesson."
-          hazard="ONBOARDING // STYLE"
-        >
+        <Section title="Pick your style" line="Mode, colour, and a pixel cat. Three steps.">
           <StyleOnboarding />
         </Section>
 
-        <Section
-          eyebrow="Customization"
-          id="03"
-          title="Theme presets"
-          description="Ten variations across dark and light modes — hover any preset to pop it forward."
-          hazard="THEMING // PRESETS"
-        >
+        <Section title="Theme presets" line="Ten looks, light and dark. Hover one.">
           <ThemeShowcase />
         </Section>
 
-        <Section
-          eyebrow="Learning"
-          id="04"
-          title="Lessons"
-          description="Interactive lessons with myth/fact callouts, skim challenges, and listening exercises tailored to each band."
-          hazard="LEARNING // LESSONS"
-        >
+        <Section title="Lessons" line="Myth or fact, skim challenges, listening.">
           <LessonsShowcase />
         </Section>
 
-        <Section
-          eyebrow="Practice"
-          id="05"
-          title="Mock tests"
-          description="Full-length mock tests across Reading, Writing, Listening, and Speaking — scored against the ELO system."
-          hazard="PRACTICE // MOCKS"
-        >
+        <Section title="Mock tests" line="Full exams, scored with ELO.">
           <MocksShowcase />
         </Section>
       </div>
