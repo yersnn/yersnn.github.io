@@ -162,9 +162,12 @@
 
 .home-expand .scroll-expand__title {
   font-family: 'Manrope', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-size: calc(var(--se-title-size) * 0.8);
   font-weight: 700;
+  line-height: 1.05;
   letter-spacing: -0.045em;
   color: #ffffff;
+  text-shadow: 0 2px 28px rgba(0, 0, 0, 0.35);
 }
 
 .home-expand .scroll-expand__frame {
