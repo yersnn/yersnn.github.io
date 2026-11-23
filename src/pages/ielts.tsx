@@ -9,10 +9,11 @@ import { LessonsShowcase } from '@/components/ielts/lessons-showcase'
 import { MocksShowcase } from '@/components/ielts/mocks-showcase'
 import { ScreensCarousel } from '@/components/ielts/screens-carousel'
 
+// Rendered into a real MacBook Pro 14 mockup (side angle); the frame is in the image.
 const onboardingSteps = [
-  { src: '/ielts-onboarding/step-1.png', alt: 'Step 1 — choose a featured mode (Gamified / Sky)' },
-  { src: '/ielts-onboarding/step-2.png', alt: 'Step 2 — choose a color theme' },
-  { src: '/ielts-onboarding/step-3.png', alt: 'Step 3 — pick your pixel cat companion' },
+  { src: '/mockups/onboarding/step-1.webp', alt: 'Step 1 — choose a featured mode (Gamified / Sky)' },
+  { src: '/mockups/onboarding/step-2.webp', alt: 'Step 2 — choose a color theme' },
+  { src: '/mockups/onboarding/step-3.webp', alt: 'Step 3 — pick your pixel cat companion' },
 ]
 
 function Section({ title, line, children }: { title: string; line: string; children: ReactNode }) {
@@ -32,8 +33,9 @@ function Section({ title, line, children }: { title: string; line: string; child
 function StyleOnboarding() {
   return (
     <ScreensCarousel
+      frame="none"
       items={onboardingSteps.map((s) => (
-        <img key={s.src} src={s.src} alt={s.alt} loading="lazy" className="h-full w-full object-contain" />
+        <img key={s.src} src={s.src} alt={s.alt} loading="lazy" className="block h-auto w-full" />
       ))}
     />
   )
