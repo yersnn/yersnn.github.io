@@ -1,5 +1,4 @@
 import './project.css'
-import { ProjectMeta } from '@/components/ui/project-meta'
 import { NextProject } from '@/components/ui/next-project'
 import FadeContent from '@/components/reactbits/FadeContent'
 import { cn } from '@/lib/utils'
@@ -24,9 +23,6 @@ export function B2BMobilePage() {
         </FadeContent>
         <FadeContent blur trigger="mount" delay={0.2}>
           <p className="mt-6 text-xl text-white md:text-3xl">Grades and progress for students and parents.</p>
-        </FadeContent>
-        <FadeContent blur trigger="mount" delay={0.35} className="mt-8">
-          <ProjectMeta items={['Product designer', '2025', 'iOS & Android']} />
         </FadeContent>
 
         <FadeContent blur className="mt-28 mb-12 md:mt-40 md:mb-16">

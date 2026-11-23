@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react'
 import './project.css'
-import { ProjectMeta } from '@/components/ui/project-meta'
 import { NextProject } from '@/components/ui/next-project'
 import FadeContent from '@/components/reactbits/FadeContent'
 import { SkyShowcase } from '@/components/ielts/sky-showcase'
@@ -50,9 +49,6 @@ export function IeltsPage() {
         </FadeContent>
         <FadeContent blur trigger="mount" delay={0.2}>
           <p className="mt-6 text-xl text-white md:text-3xl">A web app that turns exam prep into a game.</p>
-        </FadeContent>
-        <FadeContent blur trigger="mount" delay={0.35} className="mt-8">
-          <ProjectMeta items={['Product designer', '2026', 'Web']} />
         </FadeContent>
       </div>
 
