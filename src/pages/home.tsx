@@ -64,7 +64,7 @@ export function HomePage() {
 
         {nameReady && (
           <BlurText
-            text="Designs products, pushes pixels, occasionally loses an argument with CSS."
+            text="Product design, UI/UX, graphic design, and a bit of front end. If it's on a screen, I've probably touched it."
             className="home-hero__role"
             animateBy="words"
             direction="top"
