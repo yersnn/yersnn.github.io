@@ -122,7 +122,7 @@ const ScrollExpand: React.FC<ScrollExpandProps> = ({
       const sw = stage.clientWidth;
       const sh = stage.clientHeight;
       const fromW = (c.startWidth / 100) * sw;
-      const toW = Math.min(sw, sh * c.aspect);
+      const toW = sw;
       const fw = fromW + (toW - fromW) * e;
       const fh = fw / c.aspect;
       frame.style.clipPath = 'none';
@@ -178,6 +178,10 @@ const ScrollExpand: React.FC<ScrollExpandProps> = ({
     const measure = () => {
       const c = propsRef.current;
       stageH = c.useWindowScroll ? window.innerHeight : root.clientHeight;
+      if (c.aspect > 0) {
+        // Tall enough to hold the photo at full width, so it is never clipped.
+        stageH = Math.max(stageH, (root.clientWidth || window.innerWidth) / c.aspect);
+      }
       if (stageH <= 0) return;
       stage.style.height = `${stageH}px`;
       track.style.height = `${stageH * (1 + Math.max(0, c.scrollDistance) + Math.max(0, c.holdDistance))}px`;
