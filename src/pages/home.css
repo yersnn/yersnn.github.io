@@ -43,10 +43,10 @@
   overflow: hidden;
 }
 
+/* The particle canvas covers the whole hero so scattered particles are never clipped. */
 .home-hero__name {
-  width: 100%;
-  max-width: 1100px;
-  height: clamp(150px, 26vw, 260px);
+  position: absolute;
+  inset: 0;
   font-weight: 800;
 }
 
@@ -55,7 +55,13 @@
 }
 
 .home-hero__role {
-  margin-top: 12px;
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  top: calc(50% + clamp(2.6rem, 5.4vw, 6rem));
+  margin: 0;
+  text-align: center;
+  pointer-events: none;
   font-family: 'Instrument Serif', Georgia, serif;
   font-style: italic;
   font-weight: 400;

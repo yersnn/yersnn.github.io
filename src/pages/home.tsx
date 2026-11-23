@@ -46,21 +46,14 @@ export function HomePage() {
           <ParticleText
             text="Yersultan Zhumalin"
             color="#ffffff"
-            highlightColor="#4f8dff"
+            highlightColor="#0537bc"
             fontFamily="Manrope, sans-serif"
             fontWeight={800}
             fontSize="clamp(1.9rem, 6.4vw, 7rem)"
-            intro="rain"
-            gatherDuration={1100}
-            stagger={120}
-            scatter={120}
-            burstStrength={1.3}
-            pointerRepel={34}
-            repelRadius={110}
-            idleDrift={0}
-            particleSize={1.9}
-            density={3}
-            shape="line"
+            gatherDuration={1200}
+            scatter={300}
+            stagger={780}
+            burstStrength={2.3}
             glow={false}
           />
         </div>
