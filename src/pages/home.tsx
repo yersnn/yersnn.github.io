@@ -77,9 +77,9 @@ export function HomePage() {
 
       <section className="home-expand">
         <ScrollExpand
-          src="/home/backgroundimg.jpg"
-          alt=""
-          title="Selected work"
+          src="/home/wildflower-hills.jpg"
+          alt="Wildflower hills by the lily pond"
+          title="Tools people come back to every day"
           useWindowScroll
           startWidth={62}
           startHeight={58}
