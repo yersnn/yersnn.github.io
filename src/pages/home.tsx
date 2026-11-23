@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import ParticleText from '@/components/reactbits/ParticleText'
-import DitherVeil from '@/components/reactbits/DitherVeil'
 import PixelSwap from '@/components/reactbits/PixelSwap'
 import LaserFlow from '@/components/reactbits/LaserFlow'
 import FadeContent from '@/components/reactbits/FadeContent'
@@ -108,20 +107,6 @@ export function HomePage() {
       </section>
 
       <section className="home-laser" aria-hidden="true">
-        <div className="home-laser__veil">
-          <DitherVeil
-            src="/themes/dark-1.jpg"
-            pattern="bayer"
-            pixelSize={3}
-            palette="duotone"
-            inkColor="#1f3670"
-            paperColor="#0b0c0e"
-            revealRadius={200}
-            softness={0.5}
-            linger={1.4}
-            clickBurst={false}
-          />
-        </div>
         <LaserFlow
           color="#4f8dff"
           beamPosition={0.5}

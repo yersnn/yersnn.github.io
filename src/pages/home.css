@@ -175,14 +175,6 @@
   background: #0b0c0e;
 }
 
-.home-laser__veil {
-  position: absolute;
-  inset: 0;
-  opacity: 0.85;
-  pointer-events: none;
-  -webkit-mask-image: linear-gradient(transparent, #000 22%, #000 78%, transparent);
-  mask-image: linear-gradient(transparent, #000 22%, #000 78%, transparent);
-}
 
 /* ── Design statement ─────────────────────────────────────────────────── */
 
