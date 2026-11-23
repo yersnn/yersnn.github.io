@@ -33,10 +33,6 @@ const projects = [
   },
 ]
 
-function scrollToIntro() {
-  document.getElementById('intro')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-}
-
 export function HomePage() {
   return (
     <main className="home-page">
@@ -50,8 +46,8 @@ export function HomePage() {
             fontWeight={800}
             fontSize="clamp(1.9rem, 6.4vw, 7rem)"
             intro="rain"
-            gatherDuration={1900}
-            stagger={760}
+            gatherDuration={1100}
+            stagger={120}
             scatter={120}
             burstStrength={1.3}
             pointerRepel={34}
@@ -65,8 +61,6 @@ export function HomePage() {
         </div>
 
         <p className="home-hero__role">Product &amp; UI/UX designer</p>
-
-        <button type="button" className="home-hero__cue" onClick={scrollToIntro} aria-label="Scroll to content" />
       </section>
 
       <section id="intro" className="home-intro">

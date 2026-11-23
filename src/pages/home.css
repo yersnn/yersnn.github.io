@@ -56,46 +56,12 @@
 
 .home-hero__role {
   margin-top: 12px;
-  font-size: clamp(17px, 2vw, 22px);
-  font-weight: 600;
-  letter-spacing: -0.01em;
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1.2;
   color: #ffffff;
-}
-
-.home-hero__cue {
-  position: absolute;
-  bottom: 8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 56px;
-  height: 72px;
-  padding: 0;
-  border: 0;
-  background: none;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-}
-
-.home-hero__cue::after {
-  content: '';
-  width: 1px;
-  height: 48px;
-  margin-top: 10px;
-  background: linear-gradient(#ffffff, rgba(255, 255, 255, 0));
-  animation: home-cue 2.4s ease-in-out infinite;
-}
-
-@keyframes home-cue {
-  0%,
-  100% {
-    transform: translateY(0);
-    opacity: 0.9;
-  }
-  50% {
-    transform: translateY(10px);
-    opacity: 0.35;
-  }
 }
 
 /* ── Intro ────────────────────────────────────────────────────────────── */
@@ -311,8 +277,3 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .home-hero__cue::after {
-    animation: none;
-  }
-}
